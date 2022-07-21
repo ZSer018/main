@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_06;
+package threads.threads_06;
 
 public class RaceCondition_B {
 

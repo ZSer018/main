@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_08;
+package threads.threads_08;
 
 class DeadLockThread extends Thread {
 

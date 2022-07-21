@@ -1,5 +1,4 @@
-package GenericLec;
-
+package generic;
 
 class SupportQueryForm<
         QT extends QueryText,
@@ -23,12 +22,22 @@ class SupportQueryForm<
     }
 }
 
-class QueryText{}
-class Person{}
+class QueryText{
+
+}
+
+class Person{
+
+}
+
 class PersonDataBase{
     static Person getPersonById(int Id){return new Person();}
 }
-class Text{}
+
+class Text{
+
+}
+
 class HardwareProblemQueryText extends QueryText{
     Text text;
 
@@ -37,8 +46,6 @@ class HardwareProblemQueryText extends QueryText{
     }
 }
 
-
-
 public class MyClass<T> {
 
     private T[] t;
@@ -46,14 +53,6 @@ public class MyClass<T> {
     public MyClass(T[] t) {
         this.t = t;
     }
-
-
-
-
-
-
-
-
 
     public static void main(String[] args) {
 
@@ -70,8 +69,6 @@ public class MyClass<T> {
 
         supportQueryForm.setPerson( person );
         supportQueryForm.setQuerryText( new HardwareProblemQueryText( textFromQueryPageForm ) );
-
-
     }
 
 }

@@ -1,7 +1,5 @@
-package GenericLec;
+package generic;
 
 class Archive {
-    public void maind(){
 
-    }
 }

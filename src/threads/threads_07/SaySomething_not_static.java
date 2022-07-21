@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_07;
+package threads.threads_07;
 
 public class SaySomething_not_static {
 

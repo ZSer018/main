@@ -1,7 +1,4 @@
-package GenericLec;
-
-import java.util.zip.ZipEntry;
-
+package generic;
 
 public class RequestToSupportService<
         D extends TextDocument,

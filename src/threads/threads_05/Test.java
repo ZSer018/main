@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_05;
+package threads.threads_05;
 
 class Test {
     public static void main(String[] args) throws InterruptedException {

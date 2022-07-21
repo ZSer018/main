@@ -1,3 +1,5 @@
-package GenericLec;
+package generic;
 
-class LOGArchive extends Archive {}
+class LOGArchive extends Archive {
+
+}

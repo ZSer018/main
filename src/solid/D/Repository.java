@@ -1,5 +1,4 @@
-package SOLID.D;
-
+package solid.D;
 
 public interface Repository {
 

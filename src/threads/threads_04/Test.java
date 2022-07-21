@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_04;
+package threads.threads_04;
 
 class Test{
 

@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_05;
+package threads.threads_05;
 
 import java.util.Random;
 

@@ -1,22 +1,22 @@
-package SOLID.L;
+package solid.L;
 
-class Такси{
+class Taxi{
     void drive(){};
 }
 
-public class СтарющийМосквич extends Такси{
+public class OldMoskvich extends Taxi{
     void drive(){
         System.out.println("Ну и колымага этот москвич");
     }
 }
 
-class ЛадаГранта extends СтарющийМосквич {
+class LadaGranta extends OldMoskvich {
     void drive(){
         System.out.println("Лада не огонь конечно, но ехать можно");
     }
 }
 
-class KIARio extends Такси {
+class KIARio extends Taxi{
     void drive(){
         System.out.println("KIA супер, езда в удовольствие ");
     }
@@ -24,10 +24,9 @@ class KIARio extends Такси {
 
 
 class IdentifyException extends Exception{
-
 }
 
-class LandRover extends Такси{
+class LandRover extends Taxi{
 
     static void identify() throws IdentifyException{
         throw new IdentifyException();
@@ -46,35 +45,25 @@ class LandRover extends Такси{
     };
 }
 
-
-
-
-
-
-
-class Таксист{
-    private Такси авто;
-
-    public void setАвто(Такси такси_на_сегодня){
-        авто = такси_на_сегодня;
-
-        авто.drive();
+class TaxiDrtiver{
+    public void setAuto(Taxi taxi_for_today){
+        taxi_for_today.drive();
     }
 }
 
-class Таксопарк{
+class TaxiCompany{
 
     public static void main(String[] args) {
-        СтарющийМосквич москвич = new СтарющийМосквич();
-        ЛадаГранта лада = new ЛадаГранта();
+        OldMoskvich oldMoskvich = new OldMoskvich();
+        LadaGranta ladaGranta = new LadaGranta();
         KIARio kiaRio = new KIARio();
         LandRover landRover = new LandRover();
 
-        Таксист таксист = new Таксист();
-        таксист.setАвто(москвич);
-        таксист.setАвто(лада);
-        таксист.setАвто(kiaRio);
-        таксист.setАвто(landRover);
+        TaxiDrtiver drtiver = new TaxiDrtiver();
+        drtiver.setAuto(oldMoskvich);
+        drtiver.setAuto(ladaGranta);
+        drtiver.setAuto(kiaRio);
+        drtiver.setAuto(landRover);
     }
 }
 

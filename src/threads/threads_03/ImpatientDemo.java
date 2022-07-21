@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_03;
+package threads.threads_03;
 
 public class ImpatientDemo {
 

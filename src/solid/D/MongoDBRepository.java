@@ -1,4 +1,4 @@
-package SOLID.D;
+package solid.D;
 
 public class MongoDBRepository implements Repository{
     @Override

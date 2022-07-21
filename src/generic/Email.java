@@ -1,3 +1,5 @@
-package GenericLec;
+package generic;
 
-class Email {}
+class Email {
+
+}

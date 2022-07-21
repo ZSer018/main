@@ -1,4 +1,4 @@
-package GenericLec;
+package generic;
 
 interface LimitedSize{
 

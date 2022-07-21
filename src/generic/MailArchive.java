@@ -1,3 +1,5 @@
-package GenericLec;
+package generic;
 
-class MailArchive extends Archive implements LimitedSize {}
+class MailArchive extends Archive implements LimitedSize {
+
+}

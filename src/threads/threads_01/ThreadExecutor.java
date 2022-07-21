@@ -1,4 +1,4 @@
-package ThreadsLessons.threads_01;
+package threads.threads_01;
 
 class ThreadExecutor{
 

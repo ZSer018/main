@@ -1,4 +1,4 @@
-package SOLID.I;
+package solid.I;
 
 public interface Worker {
     void work();

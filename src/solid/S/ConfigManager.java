@@ -1,4 +1,4 @@
-package SOLID.S;
+package solid.S;
 
 class ConnectionManager{
     void getConnections(){}

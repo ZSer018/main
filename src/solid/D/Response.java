@@ -1,4 +1,4 @@
-package SOLID.D;
+package solid.D;
 
 class Response{
 

@@ -1,4 +1,4 @@
-package SOLID.O;
+package solid.O;
 
 interface Logger{
    void log();
