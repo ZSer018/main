@@ -1,0 +1,5 @@
+package GenericLec;
+
+interface ZIP{
+
+}

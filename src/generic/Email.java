@@ -1,0 +1,3 @@
+package GenericLec;
+
+class Email {}
