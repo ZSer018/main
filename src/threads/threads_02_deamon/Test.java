@@ -1,6 +1,6 @@
-package threads.threads_01;
+package threads.threads_02_deamon;
 
-class ThreadExecutor{
+class Test{
 
     public static void main(String[] args) {
         System.out.println("Старт основного потока");

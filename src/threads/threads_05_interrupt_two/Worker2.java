@@ -1,4 +1,4 @@
-package threads.threads_05;
+package threads.threads_05_interrupt_two;
 
 import java.util.Random;
 

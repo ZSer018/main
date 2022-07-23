@@ -1,4 +1,4 @@
-package threads.threads_01;
+package threads.threads_02_deamon;
 
 public class ChildThread extends Thread{
     @Override

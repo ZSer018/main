@@ -1,15 +1,16 @@
-package threads.threads_06;
+package threads.threads_06_race_condition;
 
-public class RaceCondition_A {
+public class RaceCondition_B {
 
     private int value = 0;
+    private Object lock = new Object();
 
     private void increment(){
         value++;
     }
 
     public static void main(String[] args) throws InterruptedException {
-        RaceCondition_A raceCondition = new RaceCondition_A();
+        RaceCondition_B raceCondition = new RaceCondition_B();
 
         Thread thread_a = new Thread(raceCondition.incrementer);
         Thread thread_b = new Thread(raceCondition.incrementer);
@@ -34,8 +35,10 @@ public class RaceCondition_A {
 
     Runnable incrementer = () -> {
 
-        for (int i = 0; i < 50_000_000; i++) {
-            increment();
+        synchronized (lock) {
+            for (int i = 0; i < 50_000_000; i++) {
+                increment();
+            }
         }
 
     };

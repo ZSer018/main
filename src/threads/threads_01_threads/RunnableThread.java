@@ -1,4 +1,4 @@
-package threads.threads_02;
+package threads.threads_01_threads;
 
 public class RunnableThread {
 

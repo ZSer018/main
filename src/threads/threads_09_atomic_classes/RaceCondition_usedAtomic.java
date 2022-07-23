@@ -1,15 +1,13 @@
-package threads.threads_06;
+package threads.threads_09_atomic_classes;
 
-public class RaceCondition_C {
+import java.util.concurrent.atomic.AtomicInteger;
 
-    private int value = 0;
+public class RaceCondition_usedAtomic {
 
-    private synchronized void increment(){
-        value++;
-    }
+    private AtomicInteger value = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
-        RaceCondition_C raceCondition = new RaceCondition_C();
+        RaceCondition_usedAtomic raceCondition = new RaceCondition_usedAtomic();
 
         Thread thread_a = new Thread(raceCondition.incrementer);
         Thread thread_b = new Thread(raceCondition.incrementer);
@@ -33,11 +31,9 @@ public class RaceCondition_C {
     }
 
     Runnable incrementer = () -> {
-
-        for (int i = 0; i < 50_000_000; i++) {
-            increment();
-        }
-
+            for (int i = 0; i < 50_000_000; i++) {
+               value.incrementAndGet();
+            }
     };
 }
 

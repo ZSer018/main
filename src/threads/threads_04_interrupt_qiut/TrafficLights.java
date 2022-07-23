@@ -1,4 +1,4 @@
-package threads.threads_04;
+package threads.threads_04_interrupt_qiut;
 
 public class TrafficLights extends Thread{
     private boolean green = false;

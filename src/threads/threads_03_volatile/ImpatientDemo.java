@@ -1,4 +1,4 @@
-package threads.threads_03;
+package threads.threads_03_volatile;
 
 public class ImpatientDemo {
 

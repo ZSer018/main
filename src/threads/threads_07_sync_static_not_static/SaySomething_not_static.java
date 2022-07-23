@@ -1,4 +1,4 @@
-package threads.threads_07;
+package threads.threads_07_sync_static_not_static;
 
 public class SaySomething_not_static {
 
