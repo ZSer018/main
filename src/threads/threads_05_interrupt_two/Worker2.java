@@ -2,11 +2,9 @@ package threads.threads_05_interrupt_two;
 
 import java.util.Random;
 
-public class Worker2 extends Thread {
+public class Worker2 implements Runnable {
     @Override
     public void run() {
-        super.run();
-
         Random random = new Random();
         System.out.println("Рабочий готов");
         do {

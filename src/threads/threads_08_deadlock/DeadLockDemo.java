@@ -8,8 +8,8 @@ public class DeadLockDemo {
         Object a = new Object();
         Object b = new Object();
 
-        new DeadLockThread(a, b, "Thread_A", "A", "B").start();
-        new DeadLockThread(b, a, "Thread_B", "B", "A").start();
+        new Thread(new DeadLockThread(a, b, "Thread_A", "A", "B")).start();
+        new Thread(new DeadLockThread(b, a, "Thread_B", "B", "A")).start();
 
         Thread.sleep(100);
         start = true;

@@ -2,9 +2,9 @@ package threads.threads_05_interrupt_two;
 
 class Test {
     public static void main(String[] args) throws InterruptedException {
-        Worker worker1 = new Worker();
+        Thread worker1 = new Thread( new Worker());
         worker1.start();
-        Worker2 worker2 = new Worker2();
+        Thread worker2 = new Thread(new Worker());
         worker2.start();
         Thread.sleep(100);
 

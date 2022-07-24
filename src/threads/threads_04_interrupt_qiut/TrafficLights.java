@@ -1,6 +1,6 @@
 package threads.threads_04_interrupt_qiut;
 
-public class TrafficLights extends Thread{
+public class TrafficLights implements Runnable{
     private boolean green = false;
 
     public void setGreen(boolean green) {
@@ -13,8 +13,6 @@ public class TrafficLights extends Thread{
 
     @Override
     public void run() {
-        super.run();
-
         do {
             if (!Thread.interrupted()) {
                 if (green) {

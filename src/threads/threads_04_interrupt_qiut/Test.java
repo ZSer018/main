@@ -4,13 +4,14 @@ class Test{
 
     public static void main(String[] args) throws InterruptedException {
         TrafficLights trafficLights = new TrafficLights();
-        trafficLights.start();
+        Thread thread = new Thread(trafficLights);
+        thread.start();
 
         for (int i = 0; i < 3; i++) {
-            Thread.sleep(2000);
+            Thread.sleep(4000);
             trafficLights.setGreen(!trafficLights.isGreen());
         }
 
-        trafficLights.interrupt();
+        thread.interrupt();
     }
 }

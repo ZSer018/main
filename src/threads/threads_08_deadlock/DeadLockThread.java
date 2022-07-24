@@ -1,6 +1,6 @@
 package threads.threads_08_deadlock;
 
-class DeadLockThread extends Thread {
+class DeadLockThread implements Runnable {
 
     private final Object lockA;
     private final Object lockB;
@@ -18,8 +18,6 @@ class DeadLockThread extends Thread {
 
     @Override
     public void run() {
-        super.run();
-
         while (!DeadLockDemo.start){
             try {
                 Thread.sleep(1);

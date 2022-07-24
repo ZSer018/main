@@ -5,8 +5,8 @@ public class Test {
     private final static Printer printer = new Printer();
 
     public static void main(String[] args) throws InterruptedException {
-        new PrintCharThread(printer, 'A', 'B').start();
-        new PrintCharThread(printer, 'B', 'C').start();
-        new PrintCharThread(printer, 'C', 'A').start();
+        new Thread(new PrintCharThread(printer, 'A', 'B')).start();
+        new Thread(new PrintCharThread(printer, 'B', 'C')).start();
+        new Thread(new PrintCharThread(printer, 'C', 'A')).start();
     }
 }

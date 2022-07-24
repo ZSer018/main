@@ -2,21 +2,21 @@ package solid.O;
 
 interface Logger{
    void log();
-   void appenfFile();
+   void appendFile();
 }
 
 class FileLogger implements Logger{
     @Override
     public void log() { }
     @Override
-    public void appenfFile() { }
+    public void appendFile() { }
 }
 
 class DBLogger implements Logger{
     @Override
     public void log() { }
     @Override
-    public void appenfFile() { }
+    public void appendFile() { }
 }
 
 public class SuperPuperImportantClass {

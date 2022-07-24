@@ -12,7 +12,7 @@ public class SaySomething_static {
 
 
 
-    static class SayTest extends Thread {
+    static class SayTest implements Runnable {
         private final SaySomething_static demo;
         private final String name;
 
@@ -23,8 +23,6 @@ public class SaySomething_static {
 
         @Override
         public void run() {
-            super.run();
-
             while (!demo.go) {
                 try {
                     Thread.sleep(1);
@@ -35,15 +33,13 @@ public class SaySomething_static {
         }
     }
 
-
-
     static class Test {
         public static void main(String[] args) throws InterruptedException {
             SaySomething_static saySomethingDemo1 = new SaySomething_static();
             SaySomething_static saySomethingDemo2 = new SaySomething_static();
 
-            new SayTest("Thread 1", saySomethingDemo1).start();
-            new SayTest("Thread 2", saySomethingDemo2).start();
+            new Thread(new SaySomething_static.SayTest("Thread 1", saySomethingDemo1)).start();
+            new Thread(new SaySomething_static.SayTest("Thread 2", saySomethingDemo2)).start();
 
             Thread.sleep(100);
 

@@ -1,10 +1,8 @@
 package threads.threads_02_deamon;
 
-public class ChildThread extends Thread{
+public class ChildThread implements Runnable{
     @Override
     public void run() {
-        super.run();
-
         System.out.println("Начало выполнения дочернего потока.");
         for (int i = 0; i < 20; i++) {
             System.out.println("Дочерний поток:  i = "+i);
