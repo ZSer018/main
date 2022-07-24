@@ -1,4 +1,4 @@
-package threads.threads_08_deadlock;
+package threads.threads_08_deadlock.how_to_do_it;
 
 public class DeadLockDemo {
 

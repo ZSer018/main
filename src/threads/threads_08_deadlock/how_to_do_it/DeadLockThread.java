@@ -1,4 +1,4 @@
-package threads.threads_08_deadlock;
+package threads.threads_08_deadlock.how_to_do_it;
 
 class DeadLockThread implements Runnable {
 
@@ -16,6 +16,7 @@ class DeadLockThread implements Runnable {
         this.objB = objB;
     }
 
+    // TODO nested synchronization blocks usually indicate that something has been done wrong.
     @Override
     public void run() {
         while (!DeadLockDemo.start){
@@ -27,9 +28,15 @@ class DeadLockThread implements Runnable {
         synchronized (lockA){
             System.out.println("Поток "+name+" заблокировал объект "+objA);
             System.out.println("Поток "+name+" пытается получить доступ к объекту "+objB);
-            synchronized (lockB){
-                System.out.println("Поток "+name+" успешно заблокировал объекту "+objB);
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
+        synchronized (lockB){
+            System.out.println("Поток "+name+" успешно заблокировал объекту "+objB);
         }
         System.out.println("Поток "+name+" завершил работу");
     }
