@@ -1,4 +1,4 @@
-package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.first_test;
+package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.semaphore;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;

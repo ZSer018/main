@@ -1,6 +1,6 @@
 package threads.threads_04_interrupt_qiut;
 
-class Test{
+class Main {
 
     public static void main(String[] args) throws InterruptedException {
         TrafficLights trafficLights = new TrafficLights();

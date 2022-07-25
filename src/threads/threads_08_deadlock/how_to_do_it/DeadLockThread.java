@@ -19,7 +19,7 @@ class DeadLockThread implements Runnable {
     // TODO nested synchronization blocks usually indicate that something has been done wrong.
     @Override
     public void run() {
-        while (!DeadLockDemo.start){
+        while (!Main.start){
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {

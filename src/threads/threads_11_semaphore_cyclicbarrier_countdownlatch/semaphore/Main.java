@@ -1,8 +1,8 @@
-package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.first_test;
+package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.semaphore;
 
 import java.util.concurrent.Semaphore;
 
-public class Test {
+public class Main {
 
     public static void main(String[] args) {
         Semaphore semaphore = new Semaphore(2);

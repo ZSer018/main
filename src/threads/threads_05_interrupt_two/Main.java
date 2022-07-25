@@ -1,6 +1,6 @@
 package threads.threads_05_interrupt_two;
 
-class Test {
+class Main {
     public static void main(String[] args) throws InterruptedException {
         Thread worker1 = new Thread( new Worker());
         worker1.start();

@@ -1,6 +1,6 @@
 package threads.threads_08_deadlock.how_not_to_do;
 
-public class DeadLockDemo {
+public class Main {
 
     public static volatile boolean start = false;
 

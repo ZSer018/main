@@ -1,6 +1,6 @@
 package threads.threads_10_notify_wait_sync_method.post_office;
 
-public class Test {
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         PostOffice postOffice = new PostOffice();

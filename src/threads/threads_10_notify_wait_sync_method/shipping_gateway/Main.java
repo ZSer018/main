@@ -3,7 +3,7 @@ package threads.threads_10_notify_wait_sync_method.shipping_gateway;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Test {
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         Gateway gateway = new Gateway(10);

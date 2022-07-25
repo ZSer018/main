@@ -1,6 +1,6 @@
 package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.semaphore_arm_wrestling;
 
-public class Test {
+public class Main {
 
     public static void main(String[] args) {
         Championship championship = new Championship();

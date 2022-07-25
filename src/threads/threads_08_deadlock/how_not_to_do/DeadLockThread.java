@@ -1,6 +1,6 @@
 package threads.threads_08_deadlock.how_not_to_do;
 
-import threads.threads_08_deadlock.how_to_do_it.DeadLockDemo;
+import threads.threads_08_deadlock.how_to_do_it.Main;
 
 class DeadLockThread implements Runnable {
 
@@ -20,7 +20,7 @@ class DeadLockThread implements Runnable {
 
     @Override
     public void run() {
-        while (!DeadLockDemo.start){
+        while (!Main.start){
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
