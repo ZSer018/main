@@ -1,15 +1,17 @@
 package threads.threads_12_reentantlock_exchanger_phaser.dictionary;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
 public class Main {
 
     public static void main(String[] args) {
-        char startChar;
-        String fff = "sdfsdfsdfsdf";
+        new Thread(new FileParserThread("а", "D:\\1\\file.txt", 0)).start();
 
-        System.out.println( fff.toLowerCase().charAt(0)) ;
+        String key = "верблюда";
+
+        if (key.matches("[a-zA-Z]")) {
+            System.out.println("yes");
+        } else
+            System.out.println("NO");
+
     }
 
 }
