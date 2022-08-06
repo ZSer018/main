@@ -11,7 +11,7 @@ public class Chef {
         phaser.register();
     }
 
-    private void makeADish(){
+    void makeADish(){
 
         System.out.println("Фаза "+ phaser.getPhase()+ ": ");
         new Thread(new KnifeThread(phaser)).start();
@@ -49,11 +49,5 @@ public class Chef {
             return false;
         }
         return true;
-    }
-
-
-    public static void main(String[] args) {
-        Chef chef = new Chef();
-        chef.makeADish();
     }
 }
