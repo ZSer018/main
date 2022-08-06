@@ -1,4 +1,4 @@
-package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.semaphore_arm_wrestling;
+package threads.threads_11_semaphore_cyclicbarrier_countdownlatch.semaphore_cyclicbarrier_arm_wrestling;
 
 import java.util.Random;
 import java.util.concurrent.*;
