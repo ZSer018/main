@@ -1,24 +1,13 @@
 package z.hibernate.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.Data;
 
+import java.util.Set;
 
-@Entity
 @Data
 public class Address {
-
-    @Id
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "person_id")
     private Person personId;
-
-    @Column
     private String address;
-
-
-
-
+    private Set<Person> personList;
 }
