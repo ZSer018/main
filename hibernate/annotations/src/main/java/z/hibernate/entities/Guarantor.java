@@ -3,22 +3,20 @@ package z.hibernate.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Data
-public class Address {
+public class Guarantor {
 
     @Id
+    @Column(name = "id")
     private int id;
 
-    @ManyToOne
     @JoinColumn(name = "person_id")
+    @ManyToOne
     private Person personId;
 
-    @Column
-    private String address;
-
-
-
+    @JoinColumn(name = "guarantor_id")
+    @OneToOne
+    private Person guarantorId;
 
 }
