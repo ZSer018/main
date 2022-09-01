@@ -7,12 +7,11 @@ public class PageMapGenerator {
 
     public static HashMap<String, Object> getVariableMap(HttpServletRequest request){
         HashMap<String, Object> result = new HashMap<>();
-        result.put("Message:", request);
-        result.put("Method:", request);
-        result.put("URL:", request);
-        result.put("PathInfo:", request);
-        result.put("SessionId:", request);
-        result.put("Parameters:", request);
+        result.put("method", request.getMethod());
+        result.put("URL", request.getRequestURL().toString());
+        result.put("pathInfo", request.getPathInfo());
+        result.put("sessionId", request.getSession().getId());
+        result.put("parameters", request.getParameterMap().toString());
 
         return result;
     }

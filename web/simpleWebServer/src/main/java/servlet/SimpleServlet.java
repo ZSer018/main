@@ -8,39 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 public class SimpleServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException, IOException {
 
-        HashMap<String, Object> responseMap = PageMapGenerator.getVariableMap(req);
-        responseMap.put("lalala", "");
+        Map<String, Object> pageVariables = PageMapGenerator.getVariableMap(request);
+        pageVariables.put("message", "");
 
-        resp.getWriter().println(PageGenerator.getInstance().getVariablePage("index.html", responseMap));
+        response.getWriter().println(PageGenerator.getInstance().getVariablePage("index.html", pageVariables));
 
-        resp.setContentType("text/html;charset=utf-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    public void doPost(HttpServletRequest request,
+                       HttpServletResponse response) throws ServletException, IOException {
+        Map<String, Object> pageVariables = PageMapGenerator.getVariableMap(request);
 
-        HashMap<String, Object> responseMap = PageMapGenerator.getVariableMap(req);
-        String message = req.getParameter("lalala");
-        resp.setContentType("text/html;charset=utf-8");
+        String message = request.getParameter("message");
 
+        response.setContentType("text/html;charset=utf-8");
 
         if (message == null || message.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         } else {
-            resp.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_OK);
         }
-        responseMap.put("Message:", message == null ? "" : message);
+        pageVariables.put("message", message == null ? "" : message);
 
-        resp.getWriter().println(PageGenerator.getInstance().getVariablePage("index.html", responseMap));
+        response.getWriter().println(PageGenerator.getInstance().getVariablePage("index.html", pageVariables));
     }
+
+
 }

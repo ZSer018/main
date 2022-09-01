@@ -6,7 +6,9 @@ import servlet.SimpleServlet;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+
         context.addServlet(new ServletHolder(new SimpleServlet()), "/*");
 
         Server server = new Server(8080);
