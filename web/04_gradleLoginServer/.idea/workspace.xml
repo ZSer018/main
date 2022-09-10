@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7357e5a3-2834-4451-b169-0f10b0ca29d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/libs/annotation-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/tmp/jar/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hibernate/full-cfg-xml/.idea/modules/my_hibernate.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hibernate/full-cfg-xml/.idea/modules/my_hibernate.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../learning.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../spring/.idea/spring.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../02_mavenLoginWebServer/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/fileContent/fileContent.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/workspace-id.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/workspace-id.txt.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/data/dao/DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/data/dao/UserDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/data/entity/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/data/util/AccountManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/data/util/HibernateUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/web/main/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/web/servlet/SignInServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/web/servlet/SignUpServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/libs/04_gradleLoginServer-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/dao/DAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/util/AccountManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/util/HibernateUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/web/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/web/servlet/SignInServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/web/servlet/SignUpServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../mavenSimpleServer.rar.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/6.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/controllers/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/controllers/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/controllers/AddressController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/AccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/AccountDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/AddressDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/LoanDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/LoanDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/PersonDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/dao/PersonDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Address.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Guarantor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Guarantor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Loan.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Loan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Person.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/PersonData.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/PersonData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/entities/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/rrr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/rrr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/utils/HibernateUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/build/classes/java/main/z/hibernate/utils/HibernateUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/controllers/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/AccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/LoanDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/LoanDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/PersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/dao/PersonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Guarantor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Guarantor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Loan.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Loan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/PersonData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/PersonData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/entities/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/rrr.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/rrr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/utils/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hibernate/annotations/src/main/java/z/hibernate/utils/HibernateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/Archive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/Attachments.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/Email.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/LOGArchive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/LimitedSize.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/MailArchive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/MyClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/RarArchive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/RequestToSupportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/TextDocument.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/ZIP.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/ZipArchive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/generic/ZipAttachmentArchive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/HTTPRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/HTTPRestHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/MongoDBRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/MySQLRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/MySQLRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/D/Response.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/I/Worker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/L/OldMoskvich.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/O/SuperPuperImportantClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/solid/S/ConfigManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_01_threads/RunnableThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_02_deamon/ChildThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_02_deamon/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_03_volatile/ImpatientDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_04_interrupt_qiut/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_04_interrupt_qiut/TrafficLights.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_05_interrupt_two/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_05_interrupt_two/Worker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_05_interrupt_two/Worker2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_06_race_condition/RaceCondition_A.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_06_race_condition/RaceCondition_B.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_06_race_condition/RaceCondition_C.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_07_sync_static_not_static/SaySomething_not_static.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_07_sync_static_not_static/SaySomething_static.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_08_deadlock/how_not_to_do/DeadLockThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_08_deadlock/how_not_to_do/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_08_deadlock/how_to_do_it/DeadLockThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_08_deadlock/how_to_do_it/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_09_atomic_classes/RaceCondition_usedAtomic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/JoinTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/diff_between_notify_and_notifyall/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/diff_between_notify_and_notifyall/PrintCharThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/diff_between_notify_and_notifyall/Printer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/post_office/China.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/post_office/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/post_office/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/post_office/PostOffice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/shipping_gateway/Gateway.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/shipping_gateway/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/shipping_gateway/Port.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_10_notify_wait_sync_method/shipping_gateway/Ship.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/countdownlath/CountDownThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/countdownlath/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/cyclicbarrier/CyclicBarrierThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/cyclicbarrier/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/semaphore/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/semaphore/SemaphoreTestThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/semaphore_arm_wrestling/ArmWrestler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/semaphore_arm_wrestling/Championship.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/threads/threads_11_semaphore_cyclicbarrier_countdownlatch/semaphore_arm_wrestling/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01_mavenSimpleServer/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../01_mavenSimpleServer/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/6.1/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/build/classes/java/main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/build/classes/java/main/servlet/SimpleServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/build/classes/java/main/utils/PageGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/build/classes/java/main/utils/PageMapGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/pages/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/src/main/java/servlet/SimpleServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/src/main/java/utils/PageGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simpleWebServer/src/main/java/utils/PageMapGenerator.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="04_gradleLoginServer" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="04_gradleLoginServer" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="04_gradleLoginServer" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2ETKAnUvwhSgRFlfSV22hhc5OCP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\---JAVA---\learning\web\04_gradleLoginServer\pages" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.04_gradleLoginServer [assemble]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="web.main.Main" />
+      <module name="04_gradleLoginServer.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="web.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="04_gradleLoginServer [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="04_gradleLoginServer [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="04_gradleLoginServer [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="04_gradleLoginServer [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.04_gradleLoginServer [assemble]" />
+        <item itemvalue="Gradle.04_gradleLoginServer [jar]" />
+        <item itemvalue="Gradle.04_gradleLoginServer [build]" />
+        <item itemvalue="Gradle.04_gradleLoginServer [clean]" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7357e5a3-2834-4451-b169-0f10b0ca29d4" name="Default Changelist" comment="" />
+      <created>1662613992982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1662613992982</updated>
+      <workItem from="1662613999576" duration="1228000" />
+      <workItem from="1662615263319" duration="10031000" />
+      <workItem from="1662726411320" duration="8677000" />
+      <workItem from="1662800837163" duration="1336000" />
+      <workItem from="1662810792619" duration="2918000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="760" y="274" key="#Project_Structure" timestamp="1662796902521">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="760" y="274" key="#Project_Structure/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662796902521" />
+    <state x="1052" y="501" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1662614240586">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1052" y="501" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662614240586" />
+    <state x="1085" y="406" key="#com.intellij.ide.util.MemberChooser" timestamp="1662644540767">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1085" y="406" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662644540767" />
+    <state x="1102" y="624" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1662615395956">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1102" y="624" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662615395956" />
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1662801393739">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662801393739" />
+    <state width="2517" height="580" key="GridCell.Tab.0.bottom" timestamp="1662813697446">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="580" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813697446" />
+    <state width="2517" height="580" key="GridCell.Tab.0.center" timestamp="1662813697446">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="580" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813697446" />
+    <state width="2517" height="580" key="GridCell.Tab.0.left" timestamp="1662813697446">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="580" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813697446" />
+    <state width="2517" height="580" key="GridCell.Tab.0.right" timestamp="1662813697446">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="580" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813697446" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1662813596310">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813596310" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1662813596310">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813596310" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1662813596310">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813596310" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1662813596310">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662813596310" />
+    <state x="662" y="310" key="new project wizard" timestamp="1662798594074">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="662" y="310" key="new project wizard/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1662798594074" />
+  </component>
+</project>
