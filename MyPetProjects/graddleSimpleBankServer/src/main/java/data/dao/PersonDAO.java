@@ -2,9 +2,17 @@ package data.dao;
 
 import data.entities.Person;
 import data.dataService.HibernateSessionFactoryService;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonDAO implements DAO<Person, String>{
 
@@ -20,6 +28,19 @@ public class PersonDAO implements DAO<Person, String>{
             session.beginTransaction();
             session.persist(object);
             session.getTransaction().commit();
+        }
+    }
+
+    public List<Person> readQuery(String field, String query){
+        try(Session session = sessionFactory.openSession()) {
+
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Person> cr = cb.createQuery(Person.class);
+            Root<Person> root = cr.from(Person.class);
+            cr.select(root).where(cb.like(root.get(field), query));
+
+            Query<Person> q = session.createQuery(cr);
+            return q.getResultList();
         }
     }
 

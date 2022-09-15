@@ -6,8 +6,12 @@ import data.dao.PersonDAO;
 import data.entities.Account;
 import data.entities.Loan;
 import data.entities.Person;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 public class DataMain {
 
@@ -32,12 +36,19 @@ public class DataMain {
         personController.create(person);*/
 
         //TODO read
-        person = personDAO.read("150");
+        Person person1 = new Person();
+
+        //List<Person> personList = personDAO.readQuerry().stream().filter(person2 -> person2.getFirstName().startsWith("A")).collect(Collectors.toList());
+
+       // List<Person> personList = personDAO.readQuery();
+       // personList.forEach(System.out::println);
+
+/*        person = personDAO.read("150");
         System.out.println(person.toString());
         System.out.println(person.getPersonData());
         person.getAccountList().forEach(System.out::println);
         person.getLoanList().forEach(System.out::println);
-        person.getGuarantorList().forEach(System.out::println);
+        person.getGuarantorList().forEach(System.out::println);*/
 
 
         //TODO update
