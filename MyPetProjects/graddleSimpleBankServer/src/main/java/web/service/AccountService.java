@@ -1,5 +1,8 @@
 package web.service;
 
+import data.dao.PersonDAO;
+import data.entities.Person;
+
 public class AccountService {
 
     private static AccountService accountManager;
@@ -15,11 +18,11 @@ public class AccountService {
         return accountManager;
     }
 
-/*    public boolean checkUserData(User user){
-        User userData = new UserDao().read(user.getLogin());
+/*    public boolean checkUserData(Person person){
+        Person personData = new PersonDAO().read(person.get);
 
-        if (userData != null) {
-            return userData.getPass().equals(user.getPass());
+        if (personData != null) {
+            return personData.getPassword().equals(person.getPassword());
         }
 
         return false;

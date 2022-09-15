@@ -7,11 +7,7 @@ import data.entities.Account;
 import data.entities.Loan;
 import data.entities.Person;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class DataMain {
 
@@ -36,19 +32,27 @@ public class DataMain {
         personController.create(person);*/
 
         //TODO read
-        Person person1 = new Person();
+        //Person person1 = new Person();
 
         //List<Person> personList = personDAO.readQuerry().stream().filter(person2 -> person2.getFirstName().startsWith("A")).collect(Collectors.toList());
 
-       // List<Person> personList = personDAO.readQuery();
-       // personList.forEach(System.out::println);
+        LinkedList<String> fields = new LinkedList<>();
+        fields.add("firstName");
+        fields.add("lastName");
 
-/*        person = personDAO.read("150");
-        System.out.println(person.toString());
-        System.out.println(person.getPersonData());
-        person.getAccountList().forEach(System.out::println);
-        person.getLoanList().forEach(System.out::println);
-        person.getGuarantorList().forEach(System.out::println);*/
+        LinkedList<String> queries = new LinkedList<>();
+        queries.add("Богдан");
+        queries.add("Зиновьев");
+
+        List<Person> personList = personDAO.readQuery(fields, queries);
+        personList.forEach(System.out::println);
+
+      //  person = personDAO.read("150");
+      //  System.out.println(person.toString());
+     //   System.out.println(person.getPersonData());
+       // person.getAccountList().forEach(System.out::println);
+        //person.getLoanList().forEach(System.out::println);
+     //   person.getGuarantorList().forEach(System.out::println);
 
 
         //TODO update

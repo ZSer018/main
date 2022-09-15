@@ -20,8 +20,6 @@ public class Person {
 
     private String patronymic;
 
-    private String password;
-
     @OneToMany(mappedBy = "personId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Account> accountList;
 
@@ -35,6 +33,9 @@ public class Person {
     private PersonData personData;
 
 
+
+
+
     @Override
     public String toString() {
         return "Person{" +
@@ -42,7 +43,6 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }
