@@ -1,8 +1,8 @@
 package data.entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -13,7 +13,7 @@ public class Loan {
     private int id;
 
     @ManyToOne
-    @JoinColumn (name = "person_id")
+    @JoinColumn(name = "person_id")
     private Person personId;
 
     private int amount;

@@ -2,9 +2,6 @@ package data.dao;
 
 import data.entities.Person;
 import data.dataService.HibernateSessionFactoryService;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -67,7 +64,7 @@ public class PersonDAO implements DAO<Person, String>{
     public List<Person> readQuery(LinkedList<String> field, LinkedList<String> query){
         try(Session session = sessionFactory.openSession()) {
 
-            CriteriaBuilder cb = session.getCriteriaBuilder();
+/*            CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Person> cr = cb.createQuery(Person.class);
             Root<Person> root = cr.from(Person.class);
 
@@ -76,7 +73,8 @@ public class PersonDAO implements DAO<Person, String>{
             ;
 
             Query<Person> q = session.createQuery(cr);
-            return q.getResultList();
+            return q.getResultList();*/
+            return null;
         }
     }
 }

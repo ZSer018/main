@@ -1,9 +1,15 @@
 package web.servlet;
 
+import web.service.AccountService;
+
 import javax.servlet.http.HttpServlet;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 
 public class SignInServlet extends HttpServlet {
 
+    //Logger logger = LogManager.getLogManager();
 /*    private final AccountManager accountManager;
 
     public SignInServlet() {

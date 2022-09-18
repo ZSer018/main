@@ -3,10 +3,6 @@ package data.dao;
 import data.dataService.HibernateSessionFactoryService;
 import data.entities.Person;
 import data.entities.PersonAccountLogin;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -60,15 +56,16 @@ public class PersonAccountLoginDAO implements DAO<PersonAccountLogin, String>{
     public List<Person> readQuery(LinkedList<String> field, LinkedList<String> query){
         try(Session session = sessionFactory.openSession()) {
 
-            CriteriaBuilder cb = session.getCriteriaBuilder();
+/*            CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Person> cr = cb.createQuery(Person.class);
             Root<Person> root = cr.from(Person.class);
 
             cr.select(root)
-                    .where(cb.like(root.get(field.poll()), query.poll())) ;
+                    .where(cb.like(root.get(field.poll()), query.poll())) ;*/
 
-            Query<Person> q = session.createQuery(cr);
-            return q.getResultList();
+           // Query<Person> q = session.createQuery(cr);
+           // return q.getResultList();
+            return null;
         }
     }
 }

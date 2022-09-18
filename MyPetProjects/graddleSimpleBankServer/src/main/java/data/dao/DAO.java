@@ -5,4 +5,5 @@ public interface DAO<T, X> {
     void update(T object);
     T read(X query);
     void delete(T object);
+
 }

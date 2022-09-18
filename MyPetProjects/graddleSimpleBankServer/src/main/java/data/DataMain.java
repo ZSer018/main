@@ -14,6 +14,8 @@ public class DataMain {
     public static void main(String[] args) {
         DataMain dataMain = new DataMain();
 
+
+
         dataMain.personQuery();
         //main.accountQuery();
         //main.loanQuery();
