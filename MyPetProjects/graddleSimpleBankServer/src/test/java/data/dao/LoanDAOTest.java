@@ -1,3 +1,5 @@
+package data.dao;
+
 import data.dao.LoanDAO;
 import data.entities.Loan;
 import junit.framework.TestCase;
@@ -7,6 +9,7 @@ import org.mockito.Mockito;
 
 public class LoanDAOTest {
 
+    @Test
     public void testCreate() {
         LoanDAO loanDAO = Mockito.mock(LoanDAO.class);
 
@@ -19,11 +22,8 @@ public class LoanDAOTest {
 
         loan = loanDAO.read("fake");
         Assert.assertEquals(loan.getId(), 0);
-        Assert.assertEquals(loan.getAmount(), 567567560);
+        Assert.assertEquals(loan.getAmount(), 10000);
     }
 
 
-    public static void main(String[] args) {
-
-    }
 }
