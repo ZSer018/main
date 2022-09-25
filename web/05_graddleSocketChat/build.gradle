@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+jar {
+    manifest {
+        attributes "Main-Class": "main.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
+    implementation group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.3.0.M0'
+
+// https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp
+    implementation group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.3.0.M0'
+
+// https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-websocket
+    implementation group: 'org.eclipse.jetty', name: 'jetty-websocket', version: '8.2.0.v20160908'
+
+// https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlet
+    implementation group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.3.0.M0'
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
+    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.48.v20220622'
+
+
+}
