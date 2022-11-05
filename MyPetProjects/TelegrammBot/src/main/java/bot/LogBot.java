@@ -32,11 +32,11 @@ public class LogBot extends TelegramLongPollingBot {
             long chat_id = update.getMessage().getChatId();
             String answer = message_text;
             log(user_first_name, user_last_name, Long.toString(user_id), message_text, answer);
-            try {
-                execute(MessageService.initSendMessage(answer, chat_id, null,null)); // Sending our message object to user
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
+         //   try {
+                //execute(MessageService.initSendMessage(answer, chat_id, null,null)); // Sending our message object to user
+           // } catch (TelegramApiException e) {
+            //    e.printStackTrace();
+           // }
         }
     }
 

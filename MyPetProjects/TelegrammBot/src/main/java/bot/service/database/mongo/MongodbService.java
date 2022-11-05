@@ -220,21 +220,15 @@ public class MongodbService implements DBService {
             mongoClient.close();
         }
 
-        System.out.println(regCalendarMap.size());
-
         if (regCalendarMap.size() < 36) {
-            System.out.println("YOYOYOY");
             serviceCalendarExtension(regCalendarMap, 36 - regCalendarMap.size());
         }
-
-       // System.out.println(")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))");
 
         return regCalendarMap;
     }
 
     @Override
     public void serviceCalendarExtension(Map<String, LinkedHashMap<String, String>> regCalendarMap, int count) {
-        System.out.println(count);
         Calendar calendar = Calendar.getInstance();
 
         if (regCalendarMap.size() > 0) {

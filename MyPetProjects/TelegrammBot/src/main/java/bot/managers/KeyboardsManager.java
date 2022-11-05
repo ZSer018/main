@@ -170,6 +170,10 @@ public class KeyboardsManager {
         row.add("Сообщение всем");
         keyboard.add(row);
 
+        row = new KeyboardRow();
+        row.add("Настройки");
+        keyboard.add(row);
+
         keyboardMarkup.setKeyboard(keyboard);
         keyboardMarkup.setResizeKeyboard(true);
         message.setReplyMarkup(keyboardMarkup);
@@ -177,6 +181,37 @@ public class KeyboardsManager {
 
         return message;
     }
+
+
+    public static SendMessage adminSettingsKeyboard(String messageText, Update update) {
+        long chatId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getChatId(): update.getMessage().getChatId();
+        SendMessage message = new SendMessage();
+        message.setText(messageText);
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("Вкл/выкл уведомления о записи");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("Вкл/выкл запись на маникюр");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("<< Назад");
+        keyboard.add(row);
+
+
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        message.setReplyMarkup(keyboardMarkup);
+        message.setChatId(chatId);
+
+        return message;
+    }
+
+
 
     public static SendMessage adminPhotoManagementKeyboard(String messageText, Update update) {
         long chatId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getChatId(): update.getMessage().getChatId();

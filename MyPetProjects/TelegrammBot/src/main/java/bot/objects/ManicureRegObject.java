@@ -13,6 +13,8 @@ public class ManicureRegObject {
     private String date = null;
     private String time = null;
 
+    private CustomerObject master;
+
 
 
     @Override
@@ -21,5 +23,6 @@ public class ManicureRegObject {
                 "Цена: " + cost + '\n' +
                 "Дата: " + date + '\n' +
                 "Время: " + time + '\n' ;
+                //+"Мастер: " + master.getName() + '\n' ;
     }
 }

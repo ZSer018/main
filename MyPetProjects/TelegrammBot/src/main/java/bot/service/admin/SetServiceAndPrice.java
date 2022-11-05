@@ -37,15 +37,15 @@ public class SetServiceAndPrice extends ResponseService {
                 if (dataManager.removeService(param2)) {
                     dataManager.getAdmin().setEditServicesAndPrices(false);
                     return List.of(
-                            new SimpleSendMessage("Услуга " + param1 + " удалена").getNewMessage(update),
+                            new SimpleSendMessage("Услуга " + param1 + " удалена", 0).getNewMessage(update),
                             KeyboardsManager.adminServicesAndPricesKeyboard("\uD83E\uDEE1", update),
-                            new SimpleSendMessage(dataManager.getServicesAndPricesString()).getNewMessage(update)
+                            new SimpleSendMessage(dataManager.getServicesAndPricesString(),0).getNewMessage(update)
                     );
                 } else {
                     return List.of(
-                            new SimpleSendMessage("Указанная услуга в списке не найдена. Удаление невозможно").getNewMessage(update),
-                            new SimpleSendMessage("\uD83E\uDEE4").getNewMessage(update),
-                            new SimpleSendMessage("Вот актуальные названия услуг: \n" + dataManager.getServicesAndPricesString()).getNewMessage(update)
+                            new SimpleSendMessage("Указанная услуга в списке не найдена. Удаление невозможно",0).getNewMessage(update),
+                            new SimpleSendMessage("\uD83E\uDEE4",0).getNewMessage(update),
+                            new SimpleSendMessage("Вот актуальные названия услуг: \n" + dataManager.getServicesAndPricesString(),0).getNewMessage(update)
                     );
                 }
             }
@@ -55,16 +55,16 @@ public class SetServiceAndPrice extends ResponseService {
                 dataManager.addOrUpdateServiceAndPrice(param1, Integer.parseInt(param2));
                 //dataManager.getAdmin().setEditServicesAndPrices(false);
                 return List.of(
-                        new SimpleSendMessage("Новая цена на услугу установлена").getNewMessage(update),
+                        new SimpleSendMessage("Новая цена на услугу установлена",0).getNewMessage(update),
                         //KeyboardsManager.adminServicesAndPricesKeyboard("\uD83E\uDEE1", update),
-                        new SimpleSendMessage(dataManager.getServicesAndPricesString()).getNewMessage(update)
+                        new SimpleSendMessage(dataManager.getServicesAndPricesString(),0).getNewMessage(update)
                 );
             }
         }
 
         return List.of(
-                new SimpleSendMessage("Не опознан ни один сценарий управления услугами. Пожалуйста повторите ввод снова").getNewMessage(update),
-                new SimpleSendMessage("\uD83E\uDEE4").getNewMessage(update)
+                new SimpleSendMessage("Не опознан ни один сценарий управления услугами. Пожалуйста повторите ввод снова",0).getNewMessage(update),
+                new SimpleSendMessage("\uD83E\uDEE4",0).getNewMessage(update)
         );
     }
 

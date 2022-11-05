@@ -1,6 +1,6 @@
 package bot;
 
-import bot.service.users.filter.CommandTypeFilter;
+import bot.service.command.filter.MainCommandTypeFilter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.*;
@@ -45,7 +45,7 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         synchronized (lock) {
-                executeMessage(new CommandTypeFilter().responseAction(update));
+                executeMessage(new MainCommandTypeFilter().responseAction(update));
         }
     }
 

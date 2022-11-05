@@ -27,17 +27,17 @@ public class AddDeletePhoto extends ResponseService {
         /*Удаление фотографий*/
         if (dataManager.getAdmin().isDeletePhotos()) {
             dataManager.removeImgFromPortfolio(fileId);
-            return new SimpleSendMessage("Фотография удалена").getNewMessage(update);
+            return new SimpleSendMessage("Фотография удалена",0).getNewMessage(update);
         }
 
 
         /*Добавление фотографий*/
         if (!dataManager.getAdmin().getViewingType().equals("-none-")) {
             dataManager.addPortfolioImg(fileId);
-            return new SimpleSendMessage("Фотография загружена").getNewMessage(update);
+            return new SimpleSendMessage("Фотография загружена", 0).getNewMessage(update);
         }
 
-        return new SimpleSendMessage("Для загрузки/ удаления фотографий необходимо выбрать соответсвующий раздел портфолио").getNewMessage(update);
+        return new SimpleSendMessage("Для загрузки/ удаления фотографий необходимо выбрать соответсвующий раздел портфолио",0 ).getNewMessage(update);
     }
 
 

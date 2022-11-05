@@ -10,10 +10,13 @@ import java.util.Objects;
 @Setter
 public class CustomerObject {
 
-    //IF THIS USER ADMIN
+    //ADMIN OPTIONS ONLY
     private boolean addingPhotos = false;
     private boolean deletePhotos = false;
     private boolean editServicesAndPrices = false;
+    private boolean sendingMessagesToAllCustomers = false;
+    private boolean regNotify = false;
+    private boolean appointments = true;
 
 
     //user go view portfolio

@@ -97,7 +97,7 @@ public class DataManager {
 
 
 
-    private String strDateToDateAndMonthName(String date){
+    public String strDateToDateAndMonthName(String date){
         String temp[] = date.split("\\.");
         Calendar calendar = Calendar.getInstance();
         calendar.set(1, Integer.parseInt(temp[1])-1, Integer.parseInt(temp[2]));
@@ -163,8 +163,6 @@ public class DataManager {
         var temp = new ArrayList<String>();
         String date = customersManicureRegistration.get(customerId).getDate();
 
-        int x = 0;
-        boolean getSeven = false;
         var hours = manicureFreeDateCalendar.get(date);
         if (hours.entrySet().stream().anyMatch(e -> e.getValue().equals("+"))) {
             hours.entrySet().stream().filter(e -> e.getValue().equals("+")).forEach(e -> temp.add(e.getKey()));
@@ -179,6 +177,10 @@ public class DataManager {
 
 
 
+    public Collection<CustomerObject> getCustomers(){
+        return customers.values();
+    }
+
     public void usersContains(long userId){
         if (!customers.containsKey(userId)){
             customers.put(userId, new CustomerObject());
@@ -190,6 +192,7 @@ public class DataManager {
         customer.setViewingPhotos(false);
         customer.setAddingPhotos(false);
         customer.setDeletePhotos(false);
+        customer.setSendingMessagesToAllCustomers(false);
         customer.setViewingType("-none-");
         customer.setEditServicesAndPrices(false);
         customer.setViewingImageList(null);
@@ -353,13 +356,13 @@ public class DataManager {
     }
 
     public void manicureCancelReg(long userId){
+        updateRegCalendar(getManicureRegObject(userId), true);
+
         dbService.removeCustomerManicureRegistration(customersManicureRegistration.get(userId));
         customersManicureRegistration.remove(userId);
     }
 
     public manicureRegStatus customerManicureRegStatus(long userId){
-
-
 
         if (customersManicureRegistration.containsKey(userId)){
             ManicureRegObject reg = customersManicureRegistration.get(userId);
@@ -472,6 +475,16 @@ public class DataManager {
     }
 
 
-
+    public void updateRegCalendar(ManicureRegObject manicureRegObject, boolean canselReg){
+        var temp = manicureFreeDateCalendar.get(manicureRegObject.getDate());
+        if (temp != null) {
+            if (canselReg) {
+                temp.put(manicureRegObject.getTime(), "+");
+            } else {
+                temp.put(manicureRegObject.getTime(), "-");
+            }
+            manicureFreeDateCalendar.put(manicureRegObject.getDate(), temp);
+        }
+    }
 
 }

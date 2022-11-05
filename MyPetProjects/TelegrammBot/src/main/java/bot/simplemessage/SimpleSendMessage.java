@@ -9,15 +9,19 @@ import java.io.Serializable;
 public class SimpleSendMessage {
 
     private final String messageText;
+    private long userId = 0;
 
-    public SimpleSendMessage(String messageText) {
+    public SimpleSendMessage(String messageText, long userId) {
         this.messageText = messageText;
+        this.userId = userId;
     }
 
     public SendMessage getNewMessage(Update update) {
-        long chatId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getChatId(): update.getMessage().getChatId();
+        if (userId == 0) {
+            userId = update.hasCallbackQuery() ? update.getCallbackQuery().getMessage().getChatId() : update.getMessage().getChatId();
+        }
         SendMessage message = new SendMessage();
-        message.setChatId(chatId);
+        message.setChatId(userId);
         message.setText(messageText);
         return message;
     }
