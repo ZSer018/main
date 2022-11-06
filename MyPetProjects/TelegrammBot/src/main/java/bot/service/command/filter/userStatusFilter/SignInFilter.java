@@ -31,10 +31,9 @@ public class SignInFilter  extends ResponseService {
             return new ContinueOrDropOffer().responseAction(update);
         }
 
-/*        if (dataManager.customerManicureRegStatus(userId) != DataManager.manicureRegStatus.NO_REG_ERROR &&
-                dataManager.customerManicureRegStatus(userId) != DataManager.manicureRegStatus.REG_COMPLETE){
-            return List.of(new SimpleSendMessage("Закончите пожалуйста регистрацию, или откажитесь от нее",0).getNewMessage(update));
-        }*/
+
+
+
 
 
         switch (text){
@@ -89,7 +88,6 @@ public class SignInFilter  extends ResponseService {
 
                 dataManager.userSetDefault(userId);
                 return List.of(
-                        new SimpleSendMessage("SignInFilter: " + update.getMessage().getText() + "?",0).getNewMessage(update),
                         KeyboardsManager.getUserKeyboard("Здравствуйте, " + dataManager.getUserName(userId) + "! Что бы Вы хотели?", update)
                 );
             }

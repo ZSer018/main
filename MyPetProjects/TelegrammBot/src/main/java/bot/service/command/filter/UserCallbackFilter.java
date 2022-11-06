@@ -7,6 +7,7 @@ import bot.service.command.manicure.*;
 import bot.service.command.portfolio.ShowPortfolio;
 import bot.service.command.signup.CallbackSignUpConfirmed;
 import bot.simplemessage.SimpleEditMessage;
+import bot.simplemessage.SimpleSendMessage;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -27,7 +28,7 @@ public class UserCallbackFilter extends ResponseService {
                 if (dataManager.getUserSignUpStatus(userId) == DataManager.userSignUpStatus.SIGNUP_IN_PROGRESS ) {
                     return new CallbackSignUpConfirmed().responseAction(update);
                 }
-                return List.of(new SimpleEditMessage("Пожалуйста начните процедуру регистрации заново").getNewEditMessage(update));
+                break;
             }
 
 
@@ -39,10 +40,17 @@ public class UserCallbackFilter extends ResponseService {
                             KeyboardsManager.getSignCancelKeyboard(null, update)
                     );
                 }
-                return List.of(new SimpleEditMessage("Пожалуйста начните процедуру регистрации заново").getNewEditMessage(update));
+                break;
             }
 
 
+            case "regConfirm_YES" :{
+                System.out.println(userId);
+                return List.of(new SimpleEditMessage("Спасибо! Будем вас ждать!").getNewEditMessage(update),
+                        new SimpleSendMessage("Запись на зватра подтверждена от: "+dataManager.getUserName(userId),
+                                dataManager.getAdmin().getTelegramId()).getNewMessage(update)
+                        );
+            }
 
             case "viewing_ShowMore": {
                 if (dataManager.userIsView(userId)) {
@@ -67,6 +75,7 @@ public class UserCallbackFilter extends ResponseService {
             }
 
 
+            case "regConfirm_NO" :
             case "BSReg_later":
             case "manicure_reg_cancel_yes": {
                 if (dataManager.customerManicureRegStatus(userId) != DataManager.manicureRegStatus.NO_REG_ERROR) {

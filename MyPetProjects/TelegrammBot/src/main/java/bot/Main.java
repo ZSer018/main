@@ -3,14 +3,13 @@ package bot;
 import bot.managers.DataManager;
 import bot.service.database.DBService;
 import bot.service.database.mongo.MongodbService;
+import bot.threads.scheduler.NotifyTask;
+import bot.threads.scheduler.RegCalendarUpdaterTask;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Main {
 
@@ -37,8 +36,8 @@ public class Main {
 
 
         DBService dbService = new MongodbService();
-        DataManager.init(dbService);
         Bot bot = new Bot("5691626921:AAHnkCqZolUvgx6zJifELpuuYDQHA5RRuKM", "@Rikotta_bot");
+        DataManager.init(dbService, bot);
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);

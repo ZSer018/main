@@ -1,27 +1,39 @@
 package bot.managers;
+import bot.Bot;
 import bot.objects.CustomerObject;
 import bot.objects.ManicureRegObject;
 import bot.service.database.DBService;
+import bot.threads.scheduler.ManicureRegistrationMapUpdateTask;
+import bot.threads.scheduler.NotifyTask;
+import bot.threads.scheduler.RegCalendarUpdaterTask;
+import lombok.Getter;
+import lombok.Setter;
 import org.checkerframework.checker.units.qual.K;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class DataManager {
 
     private static DataManager dataManager;
     private final DBService dbService;
-
+    private static ScheduledExecutorService executorService;
+    private final Bot bot;
 
 
 
     private final CustomerObject ADMIN;
     private final Map<Long, CustomerObject> customers;
     private final Map<String, String> portfolio;
-    private final Map<String, LinkedHashMap<String, String>> manicureFreeDateCalendar;
+    private Map<String, LinkedHashMap<String, String>> manicureFreeDateCalendar;
     private final Map<String, Integer> servicesAndPrices;
-    private final Map<Long, ManicureRegObject> customersManicureRegistration;
+    private Map<Long, ManicureRegObject> customersManicureRegistration;
 
 
 
@@ -32,8 +44,11 @@ public class DataManager {
 
 
 
-    private DataManager(DBService dbService) {
+    private DataManager(DBService dbService, Bot bot) {
         this.dbService = dbService;
+        this.bot = bot;
+        executorService = Executors.newScheduledThreadPool(3);
+
 
         //dbService.dropDB();
 
@@ -53,19 +68,27 @@ public class DataManager {
         customersManicureRegistration = dbService.getCustomersManicureRegistration();
     }
 
-    public static void init(DBService dbService){
+    public static void init(DBService dbService, Bot bot){
         if (dataManager == null) {
-            dataManager = new DataManager(dbService);
+            dataManager = new DataManager(dbService, bot);
+
+            executorService.scheduleAtFixedRate(NotifyTask::runIteration, 0, 1, TimeUnit.HOURS);
+            executorService.scheduleAtFixedRate(ManicureRegistrationMapUpdateTask::runIteration, 0, 1, TimeUnit.HOURS);
+            executorService.scheduleAtFixedRate(RegCalendarUpdaterTask::runIteration, 0, 1, TimeUnit.DAYS);
         } else throw new IllegalStateException("Instance already was initialized");
     }
 
     public static DataManager getInstance() {
         if (dataManager != null) {
             return dataManager;
-        } else throw new IllegalStateException("Instance is not initialize");
+        }
+
+        throw new IllegalStateException("Instance is not initialize");
     }
 
-
+    public void transferMessages(List<PartialBotApiMethod<? extends Serializable>> messageList){
+        bot.executeMessage(messageList);
+    }
 
 
 
@@ -390,6 +413,11 @@ public class DataManager {
         return true;
     }
 
+    public Collection<ManicureRegObject> getManicureCustomers(){
+        return customersManicureRegistration.values();
+    }
+
+
     public String getUserManicureRegData(long userId){
         return "Дата : "+strDateToDateAndMonthName(customersManicureRegistration.get(userId).getDate()) +"\n"+
                "Время : "+customersManicureRegistration.get(userId).getTime() +"\n"+
@@ -485,6 +513,15 @@ public class DataManager {
             }
             manicureFreeDateCalendar.put(manicureRegObject.getDate(), temp);
         }
+    }
+
+    public void updateAndReloadFreeDateCalendar(){
+        System.out.println("update reg calendar");
+        manicureFreeDateCalendar = dbService.getServiceCalendar();
+    }
+
+    public void reloadCustomersManicureRegistration(){
+        customersManicureRegistration = dbService.getCustomersManicureRegistration();
     }
 
 }

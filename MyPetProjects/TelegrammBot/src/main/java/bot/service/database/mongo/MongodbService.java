@@ -189,8 +189,8 @@ public class MongodbService implements DBService {
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
-                    String date = (String) doc.get("date");
 
+                    String date = (String) doc.get("date");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
                     LocalDate d1 = LocalDate.parse(date, formatter);
                     LocalDate d2 = LocalDate.parse(today, formatter);
@@ -282,6 +282,16 @@ public class MongodbService implements DBService {
     public Map<Long, ManicureRegObject> getCustomersManicureRegistration() {
         var regObjectHashMap = new HashMap<Long, ManicureRegObject>();
 
+
+        Date t = Calendar.getInstance().getTime();
+        String today = new SimpleDateFormat("yyyy.MM.dd").format(t);
+        String time = new SimpleDateFormat("hh:mm").format(t);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm");
+        LocalDate todayDate = LocalDate.parse(today, dateFormatter);
+        LocalDate timeNow = LocalDate.parse(time, timeFormatter);
+
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
@@ -291,13 +301,22 @@ public class MongodbService implements DBService {
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
-                    var manicureReg = new ManicureRegObject();
-                    manicureReg.setManicureType(String.valueOf(doc.get("type")));
-                    manicureReg.setCost((int) doc.get("cost"));
-                    manicureReg.setDate(String.valueOf(doc.get("date")));
-                    manicureReg.setTime(String.valueOf(doc.get("time")));
-                    manicureReg.setTelegramId((long) doc.get("telegramId"));
-                    regObjectHashMap.put((long) doc.get("telegramId"), manicureReg);
+                    String regDateStr = (String) doc.get("date");
+                    String regTimeStr = (String) doc.get("time");
+                    LocalDate regDate = LocalDate.parse(regDateStr, dateFormatter);
+                    LocalDate regTime = LocalDate.parse(regTimeStr, dateFormatter);
+
+                    if (todayDate.compareTo(regDate) <= 0) {
+                        if (timeNow.compareTo(regTime) <= 0) {
+                            var manicureReg = new ManicureRegObject();
+                            manicureReg.setManicureType(String.valueOf(doc.get("type")));
+                            manicureReg.setCost((int) doc.get("cost"));
+                            manicureReg.setDate(String.valueOf(doc.get("date")));
+                            manicureReg.setTime(String.valueOf(doc.get("time")));
+                            manicureReg.setTelegramId((long) doc.get("telegramId"));
+                            regObjectHashMap.put((long) doc.get("telegramId"), manicureReg);
+                        }
+                    }
                 }
             }
 
