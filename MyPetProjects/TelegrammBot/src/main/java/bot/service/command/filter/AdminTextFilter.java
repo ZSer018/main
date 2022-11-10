@@ -1,35 +1,48 @@
 package bot.service.command.filter;
 
 import bot.managers.KeyboardsManager;
+import bot.objects.CustomerObject;
 import bot.service.ResponseService;
 import bot.service.admin.SetServiceAndPrice;
+import bot.service.admin.regdatetime.RegHoursResponse;
+import bot.service.admin.regdatetime.SelectDate;
 import bot.service.command.messagetoall.MessageToAll;
 import bot.service.command.portfolio.ShowPortfolio;
 import bot.simplemessage.SimpleSendMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class AdminTextFilter extends ResponseService {
+
+    private static final Logger logger = LogManager.getLogger();
+
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         String text = update.getMessage().getText();
-        long adminId = dataManager.getAdmin().getTelegramId();
+        CustomerObject admin = dataManager.getAdmin();
+
+
+        logger.info("Админские делишки...");
+
 
         //TODO удалить свободное окно на определенный час или день
         switch (text) {
 
             case "Услуги и цены": {
-                return List.of(KeyboardsManager.adminServicesAndPricesKeyboard("Раздел 'Услуги и цены' ", update));
+                return List.of(KeyboardsManager.adminServicesAndPricesKeyboard("Здесь Вы можете добавить или удалить услуги, а так же установить им актуальные цены", update));
             }
+
             case "Показать услуги и цены": {
                 return List.of(new SimpleSendMessage(dataManager.getServicesAndPricesString(),0).getNewMessage(update));
             }
+
             case "Удалить услугу": {
-                dataManager.getAdmin().setEditServicesAndPrices(true);
+                admin.setEditServicesAndPrices(true);
                 return List.of(
                         KeyboardsManager.getSignCancelKeyboard("Для того что бы удалить услугу из списка, введите:\nзнак минуса '-' и через пробел название услуги.\n\n" +
                                 "Например: \n" +
@@ -38,7 +51,7 @@ public class AdminTextFilter extends ResponseService {
             }
             case "Добавить услугу":
             case "Изменить цену": {
-                dataManager.getAdmin().setEditServicesAndPrices(true);
+                admin.setEditServicesAndPrices(true);
                 return List.of(KeyboardsManager.getSignCancelKeyboard("Введите название услуги и через пробел ее цену.\n\n" +
                         "Например: \n" +
                         "Наращивание 3000", update)
@@ -46,28 +59,28 @@ public class AdminTextFilter extends ResponseService {
             }
 
 
-            case "<< Назад":
+            case "<< В начало":
             case "Закончить": {
-                dataManager.userSetDefault(adminId);
+                dataManager.userSetDefault(admin.getTelegramId());
                 return List.of(KeyboardsManager.adminMainKeyboard("Что бы Вы хотели еще, Владыка?", update));
             }
 
 
             case "Фотографии": {
-                return List.of(KeyboardsManager.adminPhotoManagementKeyboard("Фото", update));
+                return List.of(KeyboardsManager.adminPhotoManagementKeyboard("Здесь Вы можете посмотреть все имеющиеся в Вашем портфолио фотографии, а так же добавить новые или удалить устаревшие", update));
             }
             case "Посмотреть фотографии": {
-                dataManager.getAdmin().setViewingPhotos(true);
+                admin.setViewingPhotos(true);
                 return List.of(KeyboardsManager.choosePhotoTypeKeyboard("Владыка! Пожалуйста выберите, фотографии из какого раздела Вам показать", update));
             }
             case "Добавить фотографии": {
-                dataManager.getAdmin().setAddingPhotos(true);
+                admin.setAddingPhotos(true);
                 return List.of(
                         KeyboardsManager.choosePhotoTypeKeyboard("Владыка! Выберите раздел, в который будут добавляться фотографии", update)
                 );
             }
             case "Удалить фотографии": {
-                dataManager.getAdmin().setDeletePhotos(true);
+                admin.setDeletePhotos(true);
                 return List.of(
                         KeyboardsManager.getSignCancelKeyboard("Владыка! Пришлите мне фотографии, которые Вы хотите удалить из базы", update)
                 );
@@ -77,25 +90,49 @@ public class AdminTextFilter extends ResponseService {
 
 
             case "Календарь записи": {
-                return List.of(KeyboardsManager.adminRegCalendarKeyboard("Просмотр и редактирование календаря записей", update));
+                return List.of(KeyboardsManager.adminRegCalendarKeyboard("Здесь Вы можете посмотреть и редактировать календарь записей на услуги маникюра\nЧто Вам показать, Владыка?", update));
             }
-            case "Все кто записан": {
+            case "Все записи": {
                 return List.of( new SimpleSendMessage(dataManager.getAllManicureRecords(),0).getNewMessage(update));
             }
-            case "Кто записан сегодня": {
+            case "На сегодня": {
                 return List.of( new SimpleSendMessage(dataManager.getTodayManicureRecords(),0).getNewMessage(update));
             }
-            case "Свободные места": {
+            case "Свободные даты": {
                 return List.of( new SimpleSendMessage(dataManager.getFreeManicureDateTime(),0).getNewMessage(update));
+            }
+            case "Редактирование...": {
+                return List.of(KeyboardsManager.adminRegCalendarEditKeyboard("Здесь Вы можете отредактировать календарь записи. \n\n\n" +
+                        "'Отказывать в записи после...' - выбрать дату, после которой запись на маникюр будет невозможна\n\n" +
+                        "'Разрешить запись после...' - выбрать дату, после которой запись на маникюр будет доступна\n\n" +
+                        "'Редактировать дату...' - выбрать дату, для редактирования у нее времени записи\n\n"
+                        , update));
+            }
+            case "Отказывать в записи после...": {
+                admin.setChoosingRegDate(true);
+                return new SelectDate(SelectDate.Type.DATE, SelectDate.Action.CLOSE_DATE).responseAction(update);
+            }
+            case "Разрешить запись после...": {
+                admin.setChoosingRegDate(true);
+                return new SelectDate(SelectDate.Type.DATE, SelectDate.Action.OPEN_DATE).responseAction(update);
+            }
+
+            case "Редактировать дату...": {
+                admin.setChoosingRegDate(true);
+                return new SelectDate(SelectDate.Type.HOURS, null).responseAction(update);
             }
 
 
 
 
             case "Сообщение всем": {
-                dataManager.getAdmin().setSendingMessagesToAllCustomers(true);
-                return List.of(KeyboardsManager.getSignCancelKeyboard("Введите сообщения, которые будут отправлены всем зарегистрированным пользователям. Учти владыка, каждое сообщение будет начинаться со слов:" +
-                        "\n\n"+"*имя пользователя* !\n Хотим сообщить что:\n*текст сообщения*", update));
+                admin.setSendingMessagesToAllCustomers(true);
+                return List.of(KeyboardsManager.getSignCancelKeyboard("Введите сообщения, которые будут отправлены всем зарегистрированным пользователям." +
+                        " Учти Владыка, каждое сообщение будет начинаться так:\n" +
+                        "\nЗдравствйте, *имя пользователя*!\n Хотим сообщить что:\n*текст сообщения*\n\n\n" +
+                        "Пример: \n" +
+                        "Здравствуйте, Мария!\nХотим сообщить что: цена на некоторые услуги изменились. Для ознакомления загляните в меню 'Услуги и цены'", update));
+
             }
 
 
@@ -105,8 +142,8 @@ public class AdminTextFilter extends ResponseService {
             }
 
             case "Вкл/выкл уведомления о записи": {
-                dataManager.getAdmin().setRegNotify( !dataManager.getAdmin().isRegNotify() );
-                if (dataManager.getAdmin().isRegNotify()) {
+                admin.setRegNotify( !admin.isRegNotify() );
+                if (admin.isRegNotify()) {
                     return List.of(KeyboardsManager.adminSettingsKeyboard("Теперь вам БУДУТ приходить уведомления о новых записях и их отмене", update));
                 } else {
                     return List.of(KeyboardsManager.adminSettingsKeyboard("Теперь вам НЕ будут приходить уведомления о новых записях и их отмене", update));
@@ -114,8 +151,8 @@ public class AdminTextFilter extends ResponseService {
             }
 
             case "Вкл/выкл запись на маникюр": {
-                dataManager.getAdmin().setAppointments( !dataManager.getAdmin().isAppointments() );
-                if (dataManager.getAdmin().isAppointments()) {
+                admin.setAppointments( !admin.isAppointments() );
+                if (admin.isAppointments()) {
                     return List.of(KeyboardsManager.adminSettingsKeyboard("Теперь любой желающий сможет записаться к Вам на маникюр, Владыка!", update));
                 } else {
                     return List.of(KeyboardsManager.adminSettingsKeyboard("Теперь никто больше не сможет записаться на маникюр, Владыка!\nОтдыхайте, Вы заслужили это!", update));
@@ -127,22 +164,27 @@ public class AdminTextFilter extends ResponseService {
 
 
             default: {
-                if (dataManager.getAdmin().isEditServicesAndPrices()) {
+
+                if (admin.isChoosingRegDate()){
+                    return new RegHoursResponse(text).responseAction(update);
+                }
+
+                if (admin.isEditServicesAndPrices()) {
                     return new SetServiceAndPrice().responseAction(update);
                 }
 
-                if (dataManager.getAdmin().isSendingMessagesToAllCustomers()) {
+                if (admin.isSendingMessagesToAllCustomers()) {
                     return new MessageToAll().responseAction(update);
                 }
 
-                if (dataManager.userIsView(adminId) && dataManager.getServicesByName().contains(text)) {
-                    dataManager.setUserViewType(adminId, text);
+                if (dataManager.userIsView(admin.getTelegramId()) && dataManager.getServicesByName().contains(text)) {
+                    dataManager.setUserViewType(admin.getTelegramId(), text);
                     return new ShowPortfolio(null).responseAction(update);
                 }
 
-                if (dataManager.getAdmin().isAddingPhotos()) {
+                if (admin.isAddingPhotos()) {
                     if (dataManager.getServicesByName().contains(text)) {
-                        dataManager.getAdmin().setViewingType(text);
+                        admin.setViewingType(text);
                         return List.of(
                                 KeyboardsManager.getSignCancelKeyboard("Владыка! Можете приступить к добавлению фотографий", update)
                         );

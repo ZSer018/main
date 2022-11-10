@@ -16,15 +16,14 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ShowPortfolio extends ResponseService {
 
-    private List<String> viewingList = null;
+    private HashMap<String, String> viewingList = null;
     private boolean edited = false;
 
-    public ShowPortfolio(List<String> viewingList) {
+    public ShowPortfolio(HashMap<String, String> viewingList) {
         this.viewingList = viewingList;
         if (viewingList != null) edited = true;
     }
@@ -34,14 +33,15 @@ public class ShowPortfolio extends ResponseService {
         long chatId = update.hasCallbackQuery() ? update.getCallbackQuery().getMessage().getChatId() : update.getMessage().getChatId();
 
         if (viewingList == null) {
-            viewingList = dataManager.getPortfolioImgByType(chatId, dataManager.getUserViewType(chatId));
+            viewingList = new HashMap<>(dataManager.getPortfolioImgByType(dataManager.getUserViewType(chatId)));
+            dataManager.setUserViewingList(chatId, viewingList);
         }
+
         if (viewingList.size() == 0) {
             return List.of(new SimpleSendMessage("К сожалению в данном разделе пока нет ни одной фотографии",0).getNewMessage(update));
         }
-
         if (viewingList.size() == 1){
-            return List.of(sendPic(chatId, viewingList.get(0), "Пока это единственная фотография в разделе"));
+            return List.of(sendPic(chatId, (String)viewingList.values().toArray()[0]));
         }
 
         SendMediaGroup sendMediaGroup = new SendMediaGroup();
@@ -50,16 +50,25 @@ public class ShowPortfolio extends ResponseService {
         var result = new ArrayList<PartialBotApiMethod<? extends Serializable>>();
         var images = new ArrayList<InputMedia>();
 
-        for (int i = 0; i < 10; i++) {
-            if (viewingList.size() > 0){
-                images.add(new InputMediaPhoto(viewingList.get(0)));
-                viewingList.remove(0);
-            } else break;
+        int x = 10;
+
+        Iterator<String> iterator = viewingList.keySet().iterator();
+        while (iterator.hasNext()){
+            String fileUniqueId = iterator.next();
+            String fileId = viewingList.get(fileUniqueId);
+            iterator.remove();
+            images.add(new InputMediaPhoto(fileId));
+            x--;
+
+            if (x == 0){
+                break;
+            }
         }
 
         sendMediaGroup.setMedias(images);
-
+        System.out.println(edited);
         if (edited){
+            System.out.println("YES");
             if (viewingList.size() != 0) {
                 result.add(new SimpleEditMessage("Далее >>").getNewEditMessage(update));
             } else
@@ -68,6 +77,10 @@ public class ShowPortfolio extends ResponseService {
 
         result.add(sendMediaGroup);
 
+        if (viewingList.size() == 0) {
+            result.add(new SimpleSendMessage("В данном разделе больше нет фотографий", 0).getNewMessage(update));
+        }
+
         if (images.size() == 10 & viewingList.size()>0)  {
             result.add(nextPartOfferMessage(chatId));
         }
@@ -75,11 +88,11 @@ public class ShowPortfolio extends ResponseService {
         return result;
     }
 
-    private SendPhoto sendPic(long chat_id, String fileId, String caption){
+    private SendPhoto sendPic(long chat_id, String fileId){
         SendPhoto picMsg = new SendPhoto();
         picMsg.setChatId(chat_id);
         picMsg.setPhoto(new InputFile(fileId));
-        picMsg.setCaption(caption);
+        picMsg.setCaption("Больше в этом разделе фотографий у сожалению нет");
         return picMsg;
     }
 

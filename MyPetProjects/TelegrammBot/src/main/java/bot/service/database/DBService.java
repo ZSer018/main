@@ -4,10 +4,7 @@ import bot.objects.CustomerObject;
 import bot.objects.ManicureRegObject;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public interface DBService {
 
@@ -16,24 +13,28 @@ public interface DBService {
 
     CustomerObject getAdmin();
 
-    void addImageToPortfolio(String type, String Id);
+    void addImageToPortfolio(String uniqueId, String type, String Id);
     void removeImageFromPortfolio(String id);
-    Map<String, String> getPortfolio();
+    Map<String, HashMap<String, String>> getPortfolio();
 
     void removeImages(List<String> imagesId);
+
+
 
 
     Map<String, LinkedHashMap<String, String>> getServiceCalendar();
     void serviceCalendarExtension(Map<String, LinkedHashMap<String, String>> regCalendarMap, int count) throws ParseException;
 
+    void updateServiceCalendar(ManicureRegObject manicureRegObject);
+
+
 
 
     void regCustomerForManicure(ManicureRegObject manicureRegObject);
     Map<Long, ManicureRegObject> getCustomersManicureRegistration();
-
     void removeCustomerManicureRegistration(ManicureRegObject manicureRegObject);
-
-
+    void setOpenCloseDate(String openDate, String closeDate);
+    public Map<String, String> getOpenCloseDate();
 
 
 
@@ -41,6 +42,10 @@ public interface DBService {
     void adminRemoveService(String serviceName, int price);
     void addOrUpdateServiceAndPrice(String serviceName, int price);
     Map<String, Integer> getServicesAndPrices();
+
+
+
+
 
 
     void createDB();

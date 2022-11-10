@@ -1,5 +1,6 @@
 package bot;
 
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -9,11 +10,22 @@ public class Test2 {
         System.out.println("Running: " + new java.util.Date());
     }
 
-    public static void main(String[] args)    {
-        ScheduledExecutorService executorService;
+    public static void main(String[] args) throws InterruptedException {
+/*        ScheduledExecutorService executorService;
         executorService = Executors.newScheduledThreadPool(2);
-        executorService.scheduleAtFixedRate(Test2::run, 0, 29, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(Test2::run, 0, 29, TimeUnit.MINUTES);*/
+
+        Date date = new Date();
+        Thread.sleep(1000);
+        Date date2 = new Date();
+
+        System.out.println(date.compareTo(date2));
     }
+
+
+
+
+
 /*    public static void main(String[] args) throws InterruptedException {
             TestClass executor = new TestClass();
             executor.startAsync();

@@ -17,13 +17,9 @@ public class Bot extends TelegramLongPollingBot {
     private final String BOT_TOKEN;
     private final String BOT_NAME;
 
-    private final Object lock;
-
-
     public Bot(String BOT_TOKEN, String BOT_NAME) {
         this.BOT_TOKEN = BOT_TOKEN;
         this.BOT_NAME = BOT_NAME;
-        this.lock = new Object();
     }
 
     @Override
@@ -36,15 +32,12 @@ public class Bot extends TelegramLongPollingBot {
         return BOT_TOKEN;
     }
 
-    //TODO удаление регистраций после часа приема
     //TODO логирование
 
 
     @Override
     public void onUpdateReceived(Update update) {
-        synchronized (lock) {
-                executeMessage(new MainCommandTypeFilter().responseAction(update));
-        }
+        executeMessage(new MainCommandTypeFilter().responseAction(update));
     }
 
     public void executeMessage(List<PartialBotApiMethod<? extends Serializable>> messages) {
