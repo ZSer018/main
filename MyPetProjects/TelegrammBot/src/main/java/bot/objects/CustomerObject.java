@@ -3,8 +3,7 @@ package bot.objects;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
@@ -17,6 +16,12 @@ public class CustomerObject {
     private boolean sendingMessagesToAllCustomers = false;
     private boolean regNotify = false;
     private boolean appointments = true;
+    private boolean choosingRegDate = false;
+    private String manicureRegCloseDate = null;
+    private String manicureRegOpenDate = null;
+
+
+
 
 
     //user go view portfolio
@@ -24,7 +29,7 @@ public class CustomerObject {
     //type of photos viewing now
     private String viewingType = "-none-";
     //photoList  To send in chat about 10 images at once
-    private List<String> viewingImageList = null;
+    private HashMap<String, String> viewingImageList = null;
 
 
 
@@ -32,6 +37,7 @@ public class CustomerObject {
     private String Name = null;
     private String phone = null;
     private String tgUsername = null;
+    private String signInDate = null;
 
 
     @Override

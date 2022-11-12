@@ -1,19 +1,17 @@
 package bot.simplemessage;
 
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.io.Serializable;
-import java.util.List;
 
 public class SimpleEditMessage{
 
     private final String editMessageText;
 
+   // private long userId = 0;
+
     public SimpleEditMessage(String editMessageText) {
         this.editMessageText = editMessageText;
+        //this.userId = userId;
     }
 
     public EditMessageText getNewEditMessage(Update update) {

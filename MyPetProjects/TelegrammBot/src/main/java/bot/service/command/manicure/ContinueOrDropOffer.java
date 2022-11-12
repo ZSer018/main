@@ -26,7 +26,7 @@ public class ContinueOrDropOffer extends ResponseService {
         List<InlineKeyboardButton> btnInline;
 
         btnInline = new ArrayList<>();
-        btnInline.add(KeyboardsManager.getInlineKeyboardButton("Да, хочу", "BSReg_later"));
+        btnInline.add(KeyboardsManager.getInlineKeyboardButton("Да, хочу", "BSReg_abort"));
         rows.add(btnInline);
 
         btnInline = new ArrayList<>();

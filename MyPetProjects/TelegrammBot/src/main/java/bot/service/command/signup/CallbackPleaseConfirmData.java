@@ -25,16 +25,22 @@ public class CallbackPleaseConfirmData extends ResponseService {
     public SendMessage pleaseConfirmData(Update update) {
         long chatId = update.getMessage().getChatId();
         String[] data = update.getMessage().getText().replaceAll("\\s{2,}", " ").split(" ");
+        String tgUsername = update.getMessage().getChat().getUserName();
+        if (tgUsername == null) {
+            tgUsername = "Не установлено";
+        } else {
+            tgUsername = "@" + tgUsername;
+        }
 
         var customer = dataManager.getCustomerObject(chatId);
         if (data.length == 1) {
             customer.setName(data[0]);
             customer.setPhone("-");
-            customer.setTgUsername("@" + update.getMessage().getChat().getUserName());
+            customer.setTgUsername(tgUsername);
         } else {
             customer.setName(data[0]);
             customer.setPhone(data[1]);
-            customer.setTgUsername("@" + update.getMessage().getChat().getUserName());
+            customer.setTgUsername(tgUsername);
         }
         customer.setTelegramId(0);
 

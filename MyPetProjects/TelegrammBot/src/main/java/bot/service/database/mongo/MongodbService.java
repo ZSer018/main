@@ -2,19 +2,20 @@ package bot.service.database.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import bot.objects.CustomerObject;
 import bot.objects.ManicureRegObject;
+import org.bson.BsonDocument;
 import org.bson.Document;
 import bot.service.database.DBService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class MongodbService implements DBService {
@@ -35,7 +36,7 @@ public class MongodbService implements DBService {
 
     @Override
     public Map<Long, CustomerObject> getCustomers() {
-        var usermap = new HashMap<Long, CustomerObject>();
+        var usermap = new ConcurrentHashMap<Long, CustomerObject>();
 
         MongoClient mongoClient = null;
         try {
@@ -51,6 +52,7 @@ public class MongodbService implements DBService {
                     customer.setPhone(String.valueOf(doc.get("phone")));
                     customer.setTgUsername(String.valueOf(doc.get("contact")));
                     customer.setTelegramId((long) doc.get("telegramId"));
+                    customer.setSignInDate((String) doc.get("setSignInDate"));
 
                     usermap.put((long) doc.get("telegramId"), customer);
                 }
@@ -76,7 +78,8 @@ public class MongodbService implements DBService {
             Document doc = new Document("telegramId", customerObject.getTelegramId())
                     .append("name", customerObject.getName())
                     .append("phone", customerObject.getPhone())
-                    .append("contact", customerObject.getTgUsername());
+                    .append("contact", customerObject.getTgUsername())
+                    .append("setSignInDate", customerObject.getSignInDate());
 
             collection.insertOne(doc);
 
@@ -97,8 +100,8 @@ public class MongodbService implements DBService {
 
 
     @Override
-    public Map<String, String> getPortfolio() {
-        var portfolio = new HashMap<String, String>();
+    public Map<String, HashMap<String, String>> getPortfolio() {
+        var portfolio = new ConcurrentHashMap<String, HashMap<String,String>>();
 
         MongoClient mongoClient = null;
         try {
@@ -109,7 +112,12 @@ public class MongodbService implements DBService {
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
-                    portfolio.put((String) doc.get("ID"), (String) doc.get("type"));
+                    var innerMap= portfolio.get((String) doc.get("type")) != null?
+                            portfolio.get((String) doc.get("type"))
+                            : new HashMap<String, String>();
+
+                    innerMap.put((String) doc.get("uniqueID"), (String) doc.get("ID"));
+                    portfolio.put((String) doc.get("type"), innerMap);
                 }
             }
 
@@ -124,14 +132,15 @@ public class MongodbService implements DBService {
 
 
     @Override
-    public void addImageToPortfolio(String type, String Id) {
+    public void addImageToPortfolio(String uniqueId, String type, String Id) {
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
             MongoDatabase database = mongoClient.getDatabase("BeautyService");
             MongoCollection<Document> collection = database.getCollection("portfolio");
 
-            Document doc = new Document("type", type)
+            Document doc = new Document("uniqueID", uniqueId)
+                    .append("type", type)
                     .append("ID", Id);
             collection.insertOne(doc);
 
@@ -144,7 +153,7 @@ public class MongodbService implements DBService {
     }
 
 
-    public void removeImageFromPortfolio(String id) {
+    public void removeImageFromPortfolio(String uniqueId) {
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
@@ -154,7 +163,8 @@ public class MongodbService implements DBService {
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
-                    if (doc.get("ID").equals(id)){
+                    if (doc.get("uniqueID").equals(uniqueId)){
+                        System.out.println("REMOVE");
                         collection.deleteOne(doc);
                         break;
                     }
@@ -174,8 +184,9 @@ public class MongodbService implements DBService {
     public void removeImages(List<String> imagesId) {}
 
     @Override
-    public Map<String, LinkedHashMap<String, String>> getServiceCalendar() {
-        var regCalendarMap = new LinkedHashMap<String, LinkedHashMap<String, String>>(30);
+    public Map<String,  LinkedHashMap<String, String>> getServiceCalendar() {
+
+        var regCalendarMap = Collections.synchronizedMap(new LinkedHashMap<String, LinkedHashMap<String, String>>());
 
         MongoClient mongoClient = null;
         try {
@@ -183,21 +194,16 @@ public class MongodbService implements DBService {
             MongoDatabase database = mongoClient.getDatabase("BeautyService");
             MongoCollection<Document> collection = database.getCollection("regCalendar");
 
-            Date t = Calendar.getInstance().getTime();
-            String today = new SimpleDateFormat("yyyy.MM.dd").format(t);
+            Date today = new Date();
 
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
+
                     String date = (String) doc.get("date");
+                    Date regDate = new SimpleDateFormat("yyyy.MM.dd").parse(date);
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-                    LocalDate d1 = LocalDate.parse(date, formatter);
-                    LocalDate d2 = LocalDate.parse(today, formatter);
-
-
-
-                    if (d2.compareTo(d1) <= 0) {
+                    if (today.compareTo(regDate) <= 0) {
                         var temp = regCalendarMap.get((String) doc.get("date"));
 
                         if (temp == null) {
@@ -277,30 +283,150 @@ public class MongodbService implements DBService {
         }
     }
 
-
     @Override
-    public Map<Long, ManicureRegObject> getCustomersManicureRegistration() {
-        var regObjectHashMap = new HashMap<Long, ManicureRegObject>();
+    public void updateServiceCalendar(ManicureRegObject manicureRegObject) {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(connectionString);
+            MongoDatabase database = mongoClient.getDatabase("BeautyService");
+            MongoCollection<Document> collection = database.getCollection("regCalendar");
+
+            Document newDoc = new Document("date", manicureRegObject.getDate())
+                    .append("time", manicureRegObject.getTime());
+
+            try (MongoCursor<Document> cur = collection.find().iterator()) {
+                while (cur.hasNext()) {
+                    var doc = cur.next();
+                    if ( doc.get("date").equals(manicureRegObject.getDate())  &&  doc.get("time").equals(manicureRegObject.getTime())  ){
+                        if (doc.get("active").equals("+")){
+                            newDoc.append("active", "-");
+                            collection.replaceOne(doc, newDoc);
+                            break;
+                        } else {
+                            newDoc.append("active", "+");
+                            collection.replaceOne(doc, newDoc);
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }finally {
+            assert mongoClient != null;
+            mongoClient.close();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public void setOpenCloseDate(String openDate, String closeDate) {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(connectionString);
+            MongoDatabase database = mongoClient.getDatabase("BeautyService");
+            MongoCollection<Document> collection = database.getCollection("openCloseDate");
+            System.out.println("1");
+            Document openDocBlank = new Document("openDate", "open");
+            Document openDocNew = new Document("openDate", "open").append("date", openDate);
+            Document closeDocBlank = new Document("closeDate", "close");
+            Document closeDocNew = new Document("closeDate", "close").append("date", closeDate);
+            System.out.println("2");
+            if (collection.findOneAndReplace(openDocBlank, openDocNew) == null) {
+                System.out.println("Insert Open");
+                collection.insertOne(openDocNew);
+            }
+            System.out.println("3");
+            if (collection.findOneAndReplace(closeDocBlank, closeDocNew) == null) {
+                System.out.println("Insert Close");
+                collection.insertOne(closeDocNew);
+            }
+            System.out.println("4");
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }finally {
+            assert mongoClient != null;
+            mongoClient.close();
+        }
+    }
+
+    public Map<String, String> getOpenCloseDate() {
+        var dates = new HashMap<String, String>();
 
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
             MongoDatabase database = mongoClient.getDatabase("BeautyService");
-            MongoCollection<Document> collection = database.getCollection("customersManicureRegistration");
+            MongoCollection<Document> collection = database.getCollection("openCloseDate");
 
+            String open = null, close = null;
             try (MongoCursor<Document> cur = collection.find().iterator()) {
                 while (cur.hasNext()) {
                     var doc = cur.next();
-                    var manicureReg = new ManicureRegObject();
-                    manicureReg.setManicureType(String.valueOf(doc.get("type")));
-                    manicureReg.setCost((int) doc.get("cost"));
-                    manicureReg.setDate(String.valueOf(doc.get("date")));
-                    manicureReg.setTime(String.valueOf(doc.get("time")));
-                    manicureReg.setTelegramId((long) doc.get("telegramId"));
-                    regObjectHashMap.put((long) doc.get("telegramId"), manicureReg);
+                    if (doc.containsKey("openDate")) {
+                        dates.put((String) doc.get("openDate"), (String) doc.get("date"));
+                    }
+
+                    if (doc.containsKey("closeDate")) {
+                        dates.put((String) doc.get("closeDate"), (String) doc.get("date"));
+                    }
                 }
             }
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            assert mongoClient != null;
+            mongoClient.close();
+        }
+
+        return dates;
+    }
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public Map<Long, ManicureRegObject> getCustomersManicureRegistration(){
+        var regObjectHashMap = new ConcurrentHashMap<Long, ManicureRegObject>();
+        Date today = new Date();
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(connectionString);
+            MongoDatabase database = mongoClient.getDatabase("BeautyService");
+            MongoCollection<Document> collection = database.getCollection("customersManicureRegistration");
+            try (MongoCursor<Document> cur = collection.find().iterator()) {
+                while (cur.hasNext()) {
+                    var doc = cur.next();
+                    String dateStr = (String) doc.get("date");
+                    Date regDate = new SimpleDateFormat("yyyy.MM.dd").parse(dateStr);
+
+                    if (regDate.compareTo(today) >= 0) {
+                        var manicureReg = new ManicureRegObject();
+                        manicureReg.setManicureType(String.valueOf(doc.get("type")));
+                        manicureReg.setCost((int) doc.get("cost"));
+                        manicureReg.setDate(String.valueOf(doc.get("date")));
+                        manicureReg.setTime(String.valueOf(doc.get("time")));
+                        manicureReg.setTelegramId((long) doc.get("telegramId"));
+                        regObjectHashMap.put((long) doc.get("telegramId"), manicureReg);
+                    }
+                }
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -389,7 +515,7 @@ public class MongodbService implements DBService {
 
     @Override
     public Map<String, Integer> getServicesAndPrices() {
-        var servAndPrice = new HashMap<String, Integer>();
+        var servAndPrice = new ConcurrentHashMap<String, Integer>();
 
         MongoClient mongoClient = null;
         try {
@@ -471,7 +597,7 @@ public class MongodbService implements DBService {
             mongoClient = new MongoClient(connectionString);
            MongoDatabase database = mongoClient.getDatabase("BeautyService");
 
-            collection = database.getCollection("users");
+            /*collection = database.getCollection("users");
             if (collection.countDocuments() != 0) {
                 collection.drop();
             }
@@ -486,9 +612,8 @@ public class MongodbService implements DBService {
             collection = database.getCollection("servicesAndPrices");
             if (collection.countDocuments() != 0) {
                 collection.drop();
-            }
+            }*/
             collection = database.getCollection("portfolio");
-
             if (collection.countDocuments() != 0) {
                 collection.drop();
             }

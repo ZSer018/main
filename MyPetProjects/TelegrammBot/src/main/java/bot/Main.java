@@ -8,9 +8,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class Main {
 
@@ -21,12 +22,12 @@ public class Main {
 
         return temp[2] + " " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("ru"));
     }*/
-
+    //private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) throws IOException {
-/*
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 560; i++) {
+/*        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 20; i++) {
             calendar.add(calendar.DATE, 1);
             Date d = calendar.getTime();
             String outputDate = new SimpleDateFormat("yyyy.MM.dd").format(d);
@@ -35,10 +36,13 @@ public class Main {
         }*/
 
 
+        logger.info("!!!!!!!!!!!!!!!!------------- Запуск приложения -------------!!!!!!!!!!!!!!!");
+        //logger.warn("Something to warn");
+        //logger.error("Something failed.");
 
         DBService dbService = new MongodbService();
-        DataManager.init(dbService);
         Bot bot = new Bot("5691626921:AAHnkCqZolUvgx6zJifELpuuYDQHA5RRuKM", "@Rikotta_bot");
+        DataManager.init(dbService, bot);
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);

@@ -1,5 +1,6 @@
 package bot.managers;
 
+import bot.simplemessage.SimpleSendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -36,6 +37,10 @@ public class KeyboardsManager {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
+        row.add("Услуги и цены");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
         row.add("Посмотреть портфолио");
         keyboard.add(row);
 
@@ -95,10 +100,13 @@ public class KeyboardsManager {
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
-        KeyboardRow row = new KeyboardRow();
+        KeyboardRow row;
 
-        System.out.println(dataManager.customerManicureRegStatus(chatId));
+        row = new KeyboardRow();
+        row.add("Услуги и цены");
+        keyboard.add(row);
 
+        row = new KeyboardRow();
         if (dataManager.customerManicureRegStatus(chatId) == DataManager.manicureRegStatus.REG_COMPLETE) {
             row.add("Напомнить время записи");
             keyboard.add(row);
@@ -107,8 +115,9 @@ public class KeyboardsManager {
         } else {
             row.add("Записаться на маникюр");
        }
-
         keyboard.add(row);
+
+
         row = new KeyboardRow();
         row.add("Посмотреть портфолио");
         keyboard.add(row);
@@ -199,7 +208,7 @@ public class KeyboardsManager {
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("<< Назад");
+        row.add("<< В начало");
         keyboard.add(row);
 
 
@@ -233,7 +242,7 @@ public class KeyboardsManager {
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("<< Назад");
+        row.add("<< В начало");
         keyboard.add(row);
 
         keyboardMarkup.setKeyboard(keyboard);
@@ -298,7 +307,7 @@ public class KeyboardsManager {
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("<< Назад");
+        row.add("<< В начало");
         keyboard.add(row);
 
         keyboardMarkup.setKeyboard(keyboard);
@@ -318,19 +327,55 @@ public class KeyboardsManager {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
-        row.add("Все кто записан");
+        row.add("Все записи");
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("Кто записан сегодня");
+        row.add("На сегодня");
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("Свободные места");
+        row.add("Свободные даты");
         keyboard.add(row);
 
         row = new KeyboardRow();
-        row.add("<< Назад");
+        row.add("Редактирование...");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("<< В начало");
+        keyboard.add(row);
+
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        message.setReplyMarkup(keyboardMarkup);
+        message.setChatId(chatId);
+
+        return message;
+    }
+
+
+    public static SendMessage adminRegCalendarEditKeyboard(String messageText, Update update) {
+        long chatId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getChatId(): update.getMessage().getChatId();
+        SendMessage message = new SendMessage();
+        message.setText(messageText);
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("Отказывать в записи после... ");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("Разрешить запись после...");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("Редактировать дату...");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("<< В начало");
         keyboard.add(row);
 
         keyboardMarkup.setKeyboard(keyboard);

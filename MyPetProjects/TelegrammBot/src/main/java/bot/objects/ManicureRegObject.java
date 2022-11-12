@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class ManicureRegObject {
 
+    private boolean notified = false;
+
     private long telegramId = 0;
     private String manicureType = null;
     private int cost;

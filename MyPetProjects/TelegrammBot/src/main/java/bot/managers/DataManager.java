@@ -1,29 +1,44 @@
 package bot.managers;
+import bot.Bot;
 import bot.objects.CustomerObject;
 import bot.objects.ManicureRegObject;
 import bot.service.database.DBService;
+import bot.simplemessage.SimpleSendMessage;
+import bot.threads.scheduler.ManicureRegistrationMapUpdateTask;
+import bot.threads.scheduler.NotifyTask;
+import bot.threads.scheduler.RegCalendarUpdaterTask;
+import lombok.Getter;
+import lombok.Setter;
 import org.checkerframework.checker.units.qual.K;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class DataManager {
 
     private static DataManager dataManager;
     private final DBService dbService;
-
+    private static ScheduledExecutorService executorService;
+    private final Bot bot;
 
 
 
     private final CustomerObject ADMIN;
     private final Map<Long, CustomerObject> customers;
-    private final Map<String, String> portfolio;
-    private final Map<String, LinkedHashMap<String, String>> manicureFreeDateCalendar;
+    private final Map<String, HashMap<String, String>> portfolio;
+    private Map<String, LinkedHashMap<String, String>> manicureFreeDateCalendar;
     private final Map<String, Integer> servicesAndPrices;
-    private final Map<Long, ManicureRegObject> customersManicureRegistration;
-
-
+    private Map<Long, ManicureRegObject> customersManicureRegistration;
 
 
 
@@ -32,62 +47,92 @@ public class DataManager {
 
 
 
-    private DataManager(DBService dbService) {
+    private DataManager(DBService dbService, Bot bot) {
         this.dbService = dbService;
+        this.bot = bot;
+        executorService = Executors.newScheduledThreadPool(3);
+        ADMIN = new CustomerObject();
 
-        //dbService.dropDB();
-
+       // dbService.dropDB();
 
         customers = dbService.getCustomers();
-        ADMIN = new CustomerObject();
-        ADMIN.setName("Мария");
-        ADMIN.setTelegramId(851450867);
-        //ADMIN.setTelegramId(674694300);
-        ADMIN.setTgUsername("@Mary_art5");
-        customers.put(ADMIN.getTelegramId(), ADMIN);
-
-
         portfolio = dbService.getPortfolio();
         manicureFreeDateCalendar = dbService.getServiceCalendar();
         servicesAndPrices = dbService.getServicesAndPrices();
         customersManicureRegistration = dbService.getCustomersManicureRegistration();
+
+        setAdminParam();
     }
 
-    public static void init(DBService dbService){
+    private void setAdminParam(){
+        var days = dbService.getOpenCloseDate();
+        if (days.size() != 0){
+            ADMIN.setManicureRegOpenDate(days.get("open"));
+            ADMIN.setManicureRegCloseDate(days.get("close"));
+        }
+        ADMIN.setName("Мария");
+        ADMIN.setTelegramId(1);
+        //ADMIN.setTelegramId(851450867);
+        //ADMIN.setTelegramId(674694300);
+        ADMIN.setTgUsername("@Mary_art5");
+        customers.put(ADMIN.getTelegramId(), ADMIN);
+    }
+
+
+    public static void init(DBService dbService, Bot bot){
         if (dataManager == null) {
-            dataManager = new DataManager(dbService);
+            dataManager = new DataManager(dbService, bot);
+
+            executorService.scheduleAtFixedRate(NotifyTask::runIteration, 0, 10, TimeUnit.MINUTES);
+            executorService.scheduleAtFixedRate(ManicureRegistrationMapUpdateTask::runIteration, 0, 1, TimeUnit.HOURS);
+            executorService.scheduleAtFixedRate(RegCalendarUpdaterTask::runIteration, 0, 1, TimeUnit.DAYS);
         } else throw new IllegalStateException("Instance already was initialized");
     }
 
     public static DataManager getInstance() {
         if (dataManager != null) {
             return dataManager;
-        } else throw new IllegalStateException("Instance is not initialize");
+        }
+
+        throw new IllegalStateException("Instance is not initialize");
+    }
+
+    public void transferMessages(List<PartialBotApiMethod<? extends Serializable>> messageList){
+        bot.executeMessage(messageList);
     }
 
 
 
-
-
-
-
-    public void addPortfolioImg(String imgId){
-        dbService.addImageToPortfolio(dataManager.ADMIN.getViewingType(), imgId);
-        portfolio.put(imgId, dataManager.ADMIN.getViewingType());
+    public String getUserData(long chatId){
+        CustomerObject customer = customers.get(chatId);
+        return customer.getTgUsername() + " )      Имя клиента: "+customer.getName();
     }
 
-    public void removeImgFromPortfolio(String imgId){
-        dbService.removeImageFromPortfolio(imgId);
-        portfolio.remove(imgId);
+
+
+    public boolean addPortfolioImg(String uniqueId, String imgId){
+        var innerMap = portfolio.containsKey(dataManager.ADMIN.getViewingType()) ? portfolio.get(dataManager.ADMIN.getViewingType()) : new HashMap<String, String>();
+
+            if (innerMap.containsKey(uniqueId)){
+                return false;
+            }
+
+            innerMap.put(uniqueId, imgId);
+
+            portfolio.put(dataManager.ADMIN.getViewingType(), innerMap);
+            dbService.addImageToPortfolio(uniqueId, dataManager.ADMIN.getViewingType(), imgId);
+            return true;
     }
 
-    public List<String> getPortfolioImgByType(long userId, String type){
-       customers.get(userId).setViewingImageList(portfolio.entrySet().stream()
-                .filter(entry -> entry.getValue().equals(type))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList()));
+    public void removeImgFromPortfolio(String fileUniqueId){
+         portfolio.forEach((s, innerMap) -> {
+             innerMap.remove(fileUniqueId);
+         });
+        dbService.removeImageFromPortfolio(fileUniqueId);
+    }
 
-       return customers.get(userId).getViewingImageList();
+    public HashMap<String, String> getPortfolioImgByType(String type){
+       return portfolio.get(type);
     }
 
 
@@ -109,10 +154,24 @@ public class DataManager {
         StringBuilder stringBuilder = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
         String tempdate = null;
+        boolean pass = false;
 
         LinkedHashMap<String, String> manicureWeeksData = new LinkedHashMap<>();
         for (var entry : manicureFreeDateCalendar.keySet()) {
-            x++;
+
+            if (entry.equals(ADMIN.getManicureRegCloseDate())){
+                pass = true;
+            }
+
+            if (entry.equals(ADMIN.getManicureRegOpenDate())){
+                pass = false;
+            }
+
+            if (!pass) {
+                x++;
+            }
+
+
             if (x > 7) {
                 x = 0;
             }
@@ -141,15 +200,31 @@ public class DataManager {
         var temp = new LinkedHashMap<String, String>();
         String date = customersManicureRegistration.get(customerId).getChosenWeek();
 
+        boolean pass = false;
         int x = 0;
         boolean getSeven = false;
+
         for (var entry : manicureFreeDateCalendar.entrySet()) {
+            if (entry.getKey().equals(ADMIN.getManicureRegCloseDate())) {
+                pass = true;
+            }
+
+            if (entry.getKey().equals(ADMIN.getManicureRegOpenDate())) {
+                pass = false;
+            }
+
             if (entry.getKey().equals(date)) {
                 getSeven = true;
             }
+
             if (getSeven) {
-                temp.put(entry.getKey(), strDateToDateAndMonthName(entry.getKey()));
-                x++;
+                long count = entry.getValue().values().stream().filter(s -> s.equals("+")).count();
+                if (count > 0) {
+                    if (!pass) {
+                        temp.put(entry.getKey(), strDateToDateAndMonthName(entry.getKey()));
+                        x++;
+                    }
+                }
             }
             if (x == 8) {
                 break;
@@ -172,13 +247,29 @@ public class DataManager {
     }
 
 
+    public boolean checkManucureRegDataIsFree(String date, String time) {
+        return manicureFreeDateCalendar.get(date).get(time).equals("+");
+    }
 
 
 
 
 
-    public Collection<CustomerObject> getCustomers(){
-        return customers.values();
+
+
+
+
+    public List<PartialBotApiMethod<? extends Serializable>> getGroupMessageList(String messageText, Update update){
+        var messages = new LinkedList<PartialBotApiMethod<? extends Serializable>>();
+        long adminId = getAdmin().getTelegramId();
+
+        customers.forEach((k, customer) -> {
+            if (customer.getTelegramId() != adminId) {
+                messages.add(new SimpleSendMessage("Здравствуйте, "+customer.getName() + "! "+ messageText, customer.getTelegramId()).getNewMessage(update));
+            }
+        });
+
+        return messages;
     }
 
     public void usersContains(long userId){
@@ -196,6 +287,7 @@ public class DataManager {
         customer.setViewingType("-none-");
         customer.setEditServicesAndPrices(false);
         customer.setViewingImageList(null);
+        customer.setChoosingRegDate(false);
     }
 
     public boolean userActivityStatus(long userId) {
@@ -223,8 +315,12 @@ public class DataManager {
         customers.get(userId).setViewingType(text);
     }
 
-    public List<String> getUserViewingList(long userId) {
+    public HashMap<String, String> getUserViewingList(long userId) {
         return customers.get(userId).getViewingImageList();
+    }
+
+    public void setUserViewingList(long userId, HashMap<String, String> map) {
+        customers.get(userId).setViewingImageList(map);
     }
 
     public String getUserName(long userId) {
@@ -357,8 +453,11 @@ public class DataManager {
 
     public void manicureCancelReg(long userId){
         updateRegCalendar(getManicureRegObject(userId), true);
-
         dbService.removeCustomerManicureRegistration(customersManicureRegistration.get(userId));
+        customersManicureRegistration.remove(userId);
+    }
+
+    public void manicureRegAbort(long userId){
         customersManicureRegistration.remove(userId);
     }
 
@@ -390,6 +489,11 @@ public class DataManager {
         return true;
     }
 
+    public Collection<ManicureRegObject> getManicureCustomers(){
+        return customersManicureRegistration.values();
+    }
+
+
     public String getUserManicureRegData(long userId){
         return "Дата : "+strDateToDateAndMonthName(customersManicureRegistration.get(userId).getDate()) +"\n"+
                "Время : "+customersManicureRegistration.get(userId).getTime() +"\n"+
@@ -413,6 +517,9 @@ public class DataManager {
 
         });
 
+        if (regList.toString().length() == 0){
+            return "Записей нет";
+        }
         return regList.toString();
     }
 
@@ -442,7 +549,9 @@ public class DataManager {
 
             });
         }
-
+        if (regList.toString().length() == 0){
+            return "Записей нет";
+        }
         return regList.toString();
     }
 
@@ -455,12 +564,13 @@ public class DataManager {
             var map =  entry.getValue();
             var list = new ArrayList<String>();
             for (var entry2: map.entrySet()) {
-                System.out.println(entry2.getKey() + ": "+ entry2.getValue());
                 if (entry2.getValue().equals("+")){
                     list.add(entry2.getKey());
                 }
             }
-            freeReg.put(entry.getKey(), list);
+            if (list.size() != 0) {
+                freeReg.put(entry.getKey(), list);
+            }
         }
 
 
@@ -474,6 +584,91 @@ public class DataManager {
         return regList.toString();
     }
 
+    public Map<String, String> getServiceCalendar(){
+        var freeReg = new LinkedHashMap<String, String>();
+        Calendar calendar = Calendar.getInstance();
+
+        for (int i = 0; i < manicureFreeDateCalendar.size(); i++) {
+            calendar.add(Calendar.DATE, 1);
+            Date date = calendar.getTime();
+            String dateStr = new SimpleDateFormat("yyyy.MM.dd").format(date);
+            freeReg.put(strDateToDateAndMonthName(dateStr), dateStr);
+        }
+
+        return freeReg;
+    }
+
+    public List<String> getDateTime(String date) {
+        var list = new ArrayList<String>();
+        var map = manicureFreeDateCalendar.get(date);
+
+        for (var entry : map.entrySet()) {
+            //if (entry.getValue().equals("+")) {
+                list.add(entry.getKey());
+            //}
+        }
+        return list;
+    }
+
+
+    public SendMessage editRegTimeOnSelectedDate(String date, String time, long chatId) {
+        var tempDate = manicureFreeDateCalendar.get(date);
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+
+        if (manicureFreeDateCalendar.containsKey(date)) {
+
+            var customerRegList = customersManicureRegistration.values().stream().filter(manicureRegObject -> manicureRegObject.getDate().equals(date)).collect(Collectors.toList());
+            var customer = customerRegList.stream().filter(manicureRegObject -> manicureRegObject.getTime().equals(time)).collect(Collectors.toList());
+
+            if (customer.size() > 0) {
+                InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+                List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+                List<InlineKeyboardButton> btnInline = new ArrayList<>();
+                btnInline.add(KeyboardsManager.getInlineKeyboardButton("Да, отменить", "adminEditDate_yes_" + customer.get(0).getTelegramId()));
+                rows.add(btnInline);
+
+                btnInline = new ArrayList<>();
+                btnInline.add(KeyboardsManager.getInlineKeyboardButton("Не отменять", "adminEditDate_no"));
+                rows.add(btnInline);
+
+                markupInline.setKeyboard(rows);
+                sendMessage.setReplyMarkup(markupInline);
+                sendMessage.setText("На это время у Вас есть запись: \n" + customers.get(customer.get(0).getTelegramId()).getName() + " : " + customer.get(0).getManicureType() + "\nОтменить запись?");
+                return sendMessage;
+            } else {
+
+
+                sendMessage.setText("Время '" + time + "' теперь ");
+                if (tempDate.get(time) != null) {
+                    if (tempDate.get(time).equals("+")) {
+                        tempDate.put(time, "-");
+                        manicureFreeDateCalendar.put(date, tempDate);
+                        sendMessage.setText(sendMessage.getText() + " недоступно для записи");
+                    } else {
+                        tempDate.put(time, "+");
+                        manicureFreeDateCalendar.put(date, tempDate);
+                        sendMessage.setText(sendMessage.getText() + " доступно для записи");
+                    }
+                }
+                return sendMessage;
+            }
+
+        }
+        sendMessage.setText(" - Время не найдено - ");
+        return sendMessage;
+    }
+
+
+
+    public void saveOpenCloseDateChanges(){
+        dbService.setOpenCloseDate(ADMIN.getManicureRegOpenDate(), ADMIN.getManicureRegCloseDate());
+    }
+
+
+    public void saveRegCalendarChanges(ManicureRegObject object){
+        dbService.updateServiceCalendar(object);
+    }
 
     public void updateRegCalendar(ManicureRegObject manicureRegObject, boolean canselReg){
         var temp = manicureFreeDateCalendar.get(manicureRegObject.getDate());
@@ -485,6 +680,14 @@ public class DataManager {
             }
             manicureFreeDateCalendar.put(manicureRegObject.getDate(), temp);
         }
+    }
+
+    public void updateAndReloadFreeDateCalendar(){
+        manicureFreeDateCalendar = dbService.getServiceCalendar();
+    }
+
+    public void updateManicureRegMap(){
+        customersManicureRegistration = dbService.getCustomersManicureRegistration();
     }
 
 }

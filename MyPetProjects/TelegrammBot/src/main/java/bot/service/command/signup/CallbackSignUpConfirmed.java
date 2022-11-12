@@ -1,17 +1,23 @@
 package bot.service.command.signup;
 
+import bot.Bot;
 import bot.managers.KeyboardsManager;
 import bot.simplemessage.SimpleSendMessage;
 import bot.service.ResponseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CallbackSignUpConfirmed extends ResponseService {
 
     private boolean completed = false;
+    private final Logger logger = LoggerFactory.getLogger(CallbackSignUpConfirmed.class);
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
@@ -36,6 +42,7 @@ public class CallbackSignUpConfirmed extends ResponseService {
         message.setMessageId(messageId);
 
         customer.setTelegramId(chatId);
+        customer.setSignInDate(new SimpleDateFormat("yyyy.MM.dd").format(new Date()));
         String answer = "null";
         if (dataManager.addNewCustomer(chatId)) {
             completed = true;

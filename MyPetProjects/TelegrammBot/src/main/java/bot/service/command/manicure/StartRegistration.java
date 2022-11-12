@@ -33,8 +33,8 @@ public class StartRegistration extends ResponseService {
         String answer = "На сегодняшний день цены таковы: \n"+
                 dataManager.getServicesAndPricesString()+
                 "\nКакая услуга Вас интересует? ";
-        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
         List<InlineKeyboardButton> btnInline;
 
