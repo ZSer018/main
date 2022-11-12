@@ -71,78 +71,19 @@ public class DataManager {
             ADMIN.setManicureRegCloseDate(days.get("close"));
         }
         ADMIN.setName("Мария");
-        //ADMIN.setTelegramId(1);
+        ADMIN.setTelegramId(1);
         //ADMIN.setTelegramId(851450867);
-        ADMIN.setTelegramId(674694300);
+        //ADMIN.setTelegramId(674694300);
         ADMIN.setTgUsername("@Mary_art5");
         customers.put(ADMIN.getTelegramId(), ADMIN);
-
-        System.out.println("close:  "+ADMIN.getManicureRegCloseDate());
-        System.out.println("open:  "+ADMIN.getManicureRegOpenDate());
     }
 
-
-/*
-    private void getFakes() {
-        String[] regTime = new String[]{"9:00", "12:00", "15:00", "18:00"};
-        String[] dates = new String[]{"2022.11.07",
-                "2022.11.08",
-                "2022.11.01",
-                "2022.11.02",
-                "2022.10.01",
-                "2022.11.03",
-                "2022.11.04",
-                "2022.11.05",
-                "2022.11.06",
-                "2022.11.07",
-                "2022.11.09",
-                "2022.11.10",
-                "2022.11.11",
-                "2022.11.12",
-                "2022.11.13",
-                "2022.11.14",
-                "2022.11.15",
-                "2022.11.16",
-                "2022.11.17",
-                "2022.11.18",
-                "2022.11.19",
-                "2022.11.20",
-                "2022.11.21",
-                "2022.11.22",
-                "2022.11.23",
-                "2022.11.24",
-                "2022.11.25",
-                "2022.11.26"};
-
-
-
-        for (int i = 0; i < dates.length; i++) {
-            ManicureRegObject manicureRegObject = new ManicureRegObject();
-            long id = new Random().nextInt(1000000);
-
-            manicureRegObject.setDate(dates[i]);
-            for (int j = 0; j < 2; j++) {
-                manicureRegObject.setCost(new Random().nextInt(1000000));
-                manicureRegObject.setManicureType("kokoko");
-                manicureRegObject.setTime(regTime[new Random().nextInt(regTime.length-1)]);
-                manicureRegObject.setTelegramId(id);
-           }
-            customersManicureRegistration.put(id, manicureRegObject);
-        }
-
-
-        customersManicureRegistration.forEach((aLong, manicureRegObject) -> {
-            dbService.regCustomerForManicure(customersManicureRegistration.get(aLong));
-        });
-
-    }
-*/
 
     public static void init(DBService dbService, Bot bot){
         if (dataManager == null) {
             dataManager = new DataManager(dbService, bot);
 
-            executorService.scheduleAtFixedRate(NotifyTask::runIteration, 0, 1, TimeUnit.HOURS);
+            executorService.scheduleAtFixedRate(NotifyTask::runIteration, 0, 10, TimeUnit.MINUTES);
             executorService.scheduleAtFixedRate(ManicureRegistrationMapUpdateTask::runIteration, 0, 1, TimeUnit.HOURS);
             executorService.scheduleAtFixedRate(RegCalendarUpdaterTask::runIteration, 0, 1, TimeUnit.DAYS);
         } else throw new IllegalStateException("Instance already was initialized");
@@ -267,8 +208,6 @@ public class DataManager {
             if (entry.getKey().equals(ADMIN.getManicureRegCloseDate())) {
                 pass = true;
             }
-
-            System.out.println(entry.getKey() + "   -  " + ADMIN.getManicureRegCloseDate());
 
             if (entry.getKey().equals(ADMIN.getManicureRegOpenDate())) {
                 pass = false;
@@ -747,7 +686,7 @@ public class DataManager {
         manicureFreeDateCalendar = dbService.getServiceCalendar();
     }
 
-    public void reloadCustomersManicureRegistration(){
+    public void updateManicureRegMap(){
         customersManicureRegistration = dbService.getCustomersManicureRegistration();
     }
 

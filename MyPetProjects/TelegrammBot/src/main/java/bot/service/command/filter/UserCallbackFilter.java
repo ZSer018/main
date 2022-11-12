@@ -57,7 +57,7 @@ public class UserCallbackFilter extends ResponseService {
 
 
             case "regConfirm_YES": {
-                logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  Записался на маникюр");
+                logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  Подтвердил свое посещение завтра");
                 return List.of(new SimpleEditMessage("Спасибо! Будем вас ждать!").getNewEditMessage(update),
                         new SimpleSendMessage("Запись на зватра подтверждена от: " + dataManager.getUserName(userId),
                                 dataManager.getAdmin().getTelegramId()).getNewMessage(update)
@@ -92,7 +92,7 @@ public class UserCallbackFilter extends ResponseService {
             case "regConfirm_NO":
             case "manicure_reg_cancel_yes": {
                 if (dataManager.customerManicureRegStatus(userId) != DataManager.manicureRegStatus.NO_REG_ERROR) {
-                    logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  отмена текущего действия либо подтверждение отмены записи на маникюр");
+                    logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  отмена текущего действия / подтверждение отмены записи");
                     return new CallbackCancelReg("Запись отменена. Надеемся что вы вернетесь к нам снова "
                             + dataManager.getCustomerObject(userId).getName() + "!").responseAction(update);
                 }

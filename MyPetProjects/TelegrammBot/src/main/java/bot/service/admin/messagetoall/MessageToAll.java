@@ -1,4 +1,4 @@
-package bot.service.command.messagetoall;
+package bot.service.admin.messagetoall;
 
 import bot.service.ResponseService;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;

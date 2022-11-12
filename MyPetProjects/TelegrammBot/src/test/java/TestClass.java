@@ -1,5 +1,3 @@
-package bot;
-
 import com.google.common.util.concurrent.AbstractScheduledService;
 
 import java.text.SimpleDateFormat;

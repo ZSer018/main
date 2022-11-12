@@ -1,5 +1,4 @@
-package bot;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -15,11 +14,24 @@ public class Test2 {
         executorService = Executors.newScheduledThreadPool(2);
         executorService.scheduleAtFixedRate(Test2::run, 0, 29, TimeUnit.MINUTES);*/
 
-        Date date = new Date();
-        Thread.sleep(1000);
-        Date date2 = new Date();
+//        Date date = new Date();
+//        Thread.sleep(1000);
+//        Date date2 = new Date();
+//
+//        System.out.println(date.compareTo(date2));
 
-        System.out.println(date.compareTo(date2));
+        String sss = "18:00";
+
+        Date date = new Date();
+        String hourNow = new SimpleDateFormat("kk").format(date);
+        String nextHour = sss.split(":")[0];
+
+        System.out.println(hourNow);
+        System.out.println(nextHour);
+        int x = Integer.parseInt(hourNow) - Integer.parseInt(nextHour);
+        System.out.println(x);
+
+
     }
 
 

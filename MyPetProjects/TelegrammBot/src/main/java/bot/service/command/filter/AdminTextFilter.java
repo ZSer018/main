@@ -6,7 +6,7 @@ import bot.service.ResponseService;
 import bot.service.admin.SetServiceAndPrice;
 import bot.service.admin.regdatetime.RegHoursResponse;
 import bot.service.admin.regdatetime.SelectDate;
-import bot.service.command.messagetoall.MessageToAll;
+import bot.service.admin.messagetoall.MessageToAll;
 import bot.service.command.portfolio.ShowPortfolio;
 import bot.simplemessage.SimpleSendMessage;
 import org.apache.logging.log4j.LogManager;

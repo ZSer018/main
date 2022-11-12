@@ -402,11 +402,9 @@ public class MongodbService implements DBService {
 
 
     @Override
-    public Map<Long, ManicureRegObject> getCustomersManicureRegistration() {
+    public Map<Long, ManicureRegObject> getCustomersManicureRegistration(){
         var regObjectHashMap = new ConcurrentHashMap<Long, ManicureRegObject>();
-
         Date today = new Date();
-
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
