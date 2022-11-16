@@ -25,22 +25,22 @@ public class CallbackRegComplete extends ResponseService {
             temp.add(KeyboardsManager.getSignInKeyboard("С нетерпением будем Вас ждать!", update));
             temp.add(new SimpleSendMessage("\uD83D\uDE0A",0).getNewMessage(update));
 
-            if (dataManager.getAdmin().isRegNotify()){
+            if (dataManager.admin_regNotify){
                 var reg = dataManager.getManicureRegObject(update.getCallbackQuery().getMessage().getChatId());
                 temp.add(new SimpleSendMessage("Владыка, хорошая новость: \n к тебе новая запись: \n"
                                 +dataManager.getUserName(reg.getTelegramId())+"\n"
                                 +dataManager.strDateToDateAndMonthName(reg.getDate())+",   "+reg.getTime()+"\n"
                                 +reg.getManicureType()+"\n"
                                 +"цена: "+reg.getCost()
-                        ,dataManager.getAdmin().getTelegramId()).getNewMessage(update));
-                temp.add(new SimpleSendMessage("\uD83E\uDD11", dataManager.getAdmin().getTelegramId()).getNewMessage(update));
+                        ,dataManager.ADMIN_ID).getNewMessage(update));
+                temp.add(new SimpleSendMessage("\uD83E\uDD11", dataManager.ADMIN_ID).getNewMessage(update));
             }
         } else {
             dataManager.manicureRegAbort(update.getMessage().getChatId());
             dataManager.userSetDefault(update.getMessage().getChatId());
 
             temp.add(new SimpleEditMessage("К сожалению что-то пошло не так. Пожалуйста начните процедуру ругистрации заново или обратитесь напрямую к мастеру маникюра: "+
-                    dataManager.getAdmin().getTgUsername()).getNewEditMessage(update));
+                    dataManager.ADMIN_ID).getNewEditMessage(update));
             temp.add(KeyboardsManager.getSignInKeyboard("Приносим свои извинения", update));
             temp.add(new SimpleSendMessage("\uD83D\uDE14",0).getNewMessage(update));
         }

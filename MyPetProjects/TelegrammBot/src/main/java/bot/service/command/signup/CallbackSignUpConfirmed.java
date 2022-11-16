@@ -35,18 +35,16 @@ public class CallbackSignUpConfirmed extends ResponseService {
         long chatId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getChatId(): update.getMessage().getChatId();
         int messageId = update.hasCallbackQuery()? update.getCallbackQuery().getMessage().getMessageId(): update.getMessage().getMessageId();
 
-        var customer = dataManager.getCustomerObject(chatId);
-
         EditMessageText message = new EditMessageText();
         message.setChatId(chatId);
         message.setMessageId(messageId);
 
-        customer.setTelegramId(chatId);
-        customer.setSignInDate(new SimpleDateFormat("yyyy.MM.dd").format(new Date()));
+        dataManager.setUserTgId(chatId, chatId);
+        dataManager.setCustomerSignUpDate(chatId, new SimpleDateFormat("yyyy.MM.dd").format(new Date()));
         String answer = "null";
         if (dataManager.addNewCustomer(chatId)) {
             completed = true;
-            answer = "Спасибо за регистрацию, " + customer.getName() + "!";
+            answer = "Спасибо за регистрацию, " + dataManager.getUserName(chatId) + "!";
         } else {
             answer = "К сожалению что-то пошло не так. Обратитесь пожалуйста напрямую к мастеру маникюра для регистрации и записи на услугу: @Mary_art5";
         }

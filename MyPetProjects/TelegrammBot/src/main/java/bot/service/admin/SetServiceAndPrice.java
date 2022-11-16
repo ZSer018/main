@@ -35,7 +35,7 @@ public class SetServiceAndPrice extends ResponseService {
         if (!param2.equals("-null-")) {
             if (param1.equals("-")) {
                 if (dataManager.removeService(param2)) {
-                    dataManager.getAdmin().setEditServicesAndPrices(false);
+                    dataManager.admin_editServicesAndPrices = false;
                     return List.of(
                             new SimpleSendMessage("Услуга " + param1 + " удалена", 0).getNewMessage(update),
                             KeyboardsManager.adminServicesAndPricesKeyboard("\uD83E\uDEE1", update),

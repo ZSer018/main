@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +35,7 @@ public class NotifyTask{
         String hour = new SimpleDateFormat("kk").format(date);
 
         if (hour.equals("13") && !notified) {
+            System.out.println("Проверка необходимости отправить уведомления клиентам");
             final var notifyList = new ArrayList<PartialBotApiMethod<? extends Serializable>>();
 
             Calendar tomorrow = Calendar.getInstance();
@@ -52,9 +52,10 @@ public class NotifyTask{
                             , customerRegData.getTelegramId()));
                 }
             });
+
             dataManager.transferMessages(notifyList);
             notified = true;
-        } else if (!hour.equals("13")) {
+        } else if (!hour.equals("12")) {
             notified = false;
         }
     }

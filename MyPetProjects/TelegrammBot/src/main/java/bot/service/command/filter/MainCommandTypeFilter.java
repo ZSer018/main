@@ -14,8 +14,7 @@ public class MainCommandTypeFilter extends ResponseService {
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         long chatId = update.hasCallbackQuery() ? update.getCallbackQuery().getMessage().getChatId() : update.getMessage().getChatId();
 
-        dataManager.usersContains(chatId);
-
+        dataManager.isUsersContains(chatId);
 
         if (update.hasMessage() && update.getMessage().hasPhoto()) {
             return new AddDeletePhoto().responseAction(update);

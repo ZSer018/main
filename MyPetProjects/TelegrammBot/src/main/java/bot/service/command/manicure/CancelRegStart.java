@@ -38,7 +38,7 @@ public class CancelRegStart extends ResponseService {
         markupInline.setKeyboard(rowsInline);
         message.setReplyMarkup(markupInline);
         message.setChatId(chatId);
-        message.setText(dataManager.getCustomerObject(chatId).getName()+ ", Вы уверены что хотите отменить свою запись? \nВы записаны:\n"+dataManager.getUserManicureRegData(chatId));
+        message.setText(dataManager.getUserName(chatId)+ ", Вы уверены что хотите отменить свою запись? \nВы записаны:\n"+dataManager.getUserManicureRegData(chatId));
         return message;
     }
 }

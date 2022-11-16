@@ -52,6 +52,7 @@ public class MongodbService implements DBService {
                     customer.setPhone(String.valueOf(doc.get("phone")));
                     customer.setTgUsername(String.valueOf(doc.get("contact")));
                     customer.setTelegramId((long) doc.get("telegramId"));
+                    //customer.setAdminNotifyMessage(  doc.containsKey("notifyString")? (String) doc.get("notifyString") : null);
                     customer.setSignInDate((String) doc.get("setSignInDate"));
 
                     usermap.put((long) doc.get("telegramId"), customer);
@@ -79,6 +80,7 @@ public class MongodbService implements DBService {
                     .append("name", customerObject.getName())
                     .append("phone", customerObject.getPhone())
                     .append("contact", customerObject.getTgUsername())
+                    //.append("notifyString", customerObject.getAdminNotifyMessage())
                     .append("setSignInDate", customerObject.getSignInDate());
 
             collection.insertOne(doc);
@@ -329,28 +331,47 @@ public class MongodbService implements DBService {
 
 
 
-    public void setOpenCloseDate(String openDate, String closeDate) {
+    public void setBotOptions(boolean regNotify, boolean regOnService, String closeDate, String openDate, String serviceMessage) {
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
             MongoDatabase database = mongoClient.getDatabase("BeautyService");
-            MongoCollection<Document> collection = database.getCollection("openCloseDate");
-            System.out.println("1");
-            Document openDocBlank = new Document("openDate", "open");
-            Document openDocNew = new Document("openDate", "open").append("date", openDate);
-            Document closeDocBlank = new Document("closeDate", "close");
-            Document closeDocNew = new Document("closeDate", "close").append("date", closeDate);
-            System.out.println("2");
+            MongoCollection<Document> collection = database.getCollection("botOptions");
+
+            Document regNotifyBlank = new Document("regNotify", "regNotify");
+            Document regNotifyNew = new Document("regNotify", "regNotify").append("notify", regNotify);
+
+            Document regOnServiceBlank = new Document("regOnService", "regOnService");
+            Document regOnServiceNew = new Document("regOnService", "regOnService").append("regService", regOnService);
+
+            Document openDocBlank = new Document("openDate", "openDate");
+            Document openDocNew = new Document("openDate", "openDate").append("date", openDate);
+
+            Document closeDocBlank = new Document("closeDate", "closeDate");
+            Document closeDocNew = new Document("closeDate", "closeDate").append("date", closeDate);
+
+            Document serviceMessageBlank = new Document("serviceMessage", "serviceMessage");
+            Document serviceMessageNew = new Document("serviceMessage", "serviceMessage").append("message", serviceMessage);
+
+            if (collection.findOneAndReplace(regNotifyBlank, regNotifyNew) == null) {
+                collection.insertOne(regNotifyNew);
+            }
+
+            if (collection.findOneAndReplace(regOnServiceBlank, regOnServiceNew) == null) {
+                collection.insertOne(regOnServiceNew);
+            }
+
             if (collection.findOneAndReplace(openDocBlank, openDocNew) == null) {
-                System.out.println("Insert Open");
                 collection.insertOne(openDocNew);
             }
-            System.out.println("3");
+
             if (collection.findOneAndReplace(closeDocBlank, closeDocNew) == null) {
-                System.out.println("Insert Close");
                 collection.insertOne(closeDocNew);
             }
-            System.out.println("4");
+            if (collection.findOneAndReplace(serviceMessageBlank, serviceMessageNew) == null) {
+                collection.insertOne(serviceMessageNew);
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }finally {
@@ -359,14 +380,14 @@ public class MongodbService implements DBService {
         }
     }
 
-    public Map<String, String> getOpenCloseDate() {
+    public Map<String, String> getBotOptions() {
         var dates = new HashMap<String, String>();
 
         MongoClient mongoClient = null;
         try {
             mongoClient = new MongoClient(connectionString);
             MongoDatabase database = mongoClient.getDatabase("BeautyService");
-            MongoCollection<Document> collection = database.getCollection("openCloseDate");
+            MongoCollection<Document> collection = database.getCollection("botOptions");
 
             String open = null, close = null;
             try (MongoCursor<Document> cur = collection.find().iterator()) {
@@ -378,6 +399,18 @@ public class MongodbService implements DBService {
 
                     if (doc.containsKey("closeDate")) {
                         dates.put((String) doc.get("closeDate"), (String) doc.get("date"));
+                    }
+
+                    if (doc.containsKey("regNotify")) {
+                        dates.put((String) doc.get("regNotify"), String.valueOf( doc.get("notify")));
+                    }
+
+                    if (doc.containsKey("regOnService")) {
+                        dates.put((String) doc.get("regOnService"), String.valueOf(doc.get("regService")));
+                    }
+
+                    if (doc.containsKey("serviceMessage")) {
+                        dates.put((String) doc.get("serviceMessage"), (String) doc.get("message"));
                     }
                 }
             }

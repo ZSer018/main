@@ -21,8 +21,8 @@ public class AdminCancelManicureReg extends ResponseService {
 
         return List.of(
                 new SimpleEditMessage("Пользователь удален").getNewEditMessage(update),
-                new SimpleSendMessage("Запись на указанное время отменена. Время теперь не занято.", dataManager.getAdmin().getTelegramId()).getNewMessage(update),
-                new SimpleSendMessage("Ваша запись на услуги маникюра: \n"+temp.getDate() + " - "+temp.getTime() + " \n"+temp.getManicureType() +": "+ temp.getCost() + " - отменена. \nПо всем вопросам Вы можете связаться с мастером используя соответствующее меню.", userId).getNewMessage(update)
+                new SimpleSendMessage("Запись на указанное время отменена. Время теперь не занято.", dataManager.ADMIN_ID).getNewMessage(update),
+                new SimpleSendMessage("Ваша запись на услуги маникюра отменена: \n"+temp.getDate() + " - "+temp.getTime() + " \n"+temp.getManicureType() +": "+ temp.getCost() + "\n\nПо всем вопросам Вы можете обратиться к мастеру, используя соответствующее меню.", userId).getNewMessage(update)
         );
     }
 }

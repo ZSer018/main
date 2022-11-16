@@ -8,12 +8,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class MainTextCommandFilter extends ResponseService {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         DataManager.userSignUpStatus userSignUpStatus = dataManager.getUserSignUpStatus(update.getMessage().getChatId());
+
+        if (Objects.equals(dataManager.ADMIN_ID, update.getMessage().getChatId())){
+            return new AdminTextFilter().responseAction(update);
+        } //else return List.of(new SimpleSendMessage("Я на ремонте",0).getNewMessage(update));
 
         switch (userSignUpStatus) {
 

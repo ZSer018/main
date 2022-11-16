@@ -20,12 +20,12 @@ public class RegHoursResponse extends ResponseService {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         ManicureRegObject manicureRegObject = new ManicureRegObject();
-        manicureRegObject.setDate(dataManager.getAdmin().getSignInDate());
+        manicureRegObject.setDate(dataManager.getCustomerSignUpDate(dataManager.ADMIN_ID));
         manicureRegObject.setTime(hour);
 
         dataManager.saveRegCalendarChanges(manicureRegObject);
 
-        return List.of(dataManager.editRegTimeOnSelectedDate(dataManager.getAdmin().getSignInDate(), hour, update.getMessage().getChatId()));
+        return List.of(dataManager.editRegTimeOnSelectedDate(dataManager.getCustomerSignUpDate(dataManager.ADMIN_ID), hour, update.getMessage().getChatId()));
 
 /*        return List.of(new SimpleSendMessage(
                 "Время '"+hour+"' теперь "+dataManager.editRegTimeOnSelectedDate(dataManager.getAdmin().getSignInDate(), hour), 0

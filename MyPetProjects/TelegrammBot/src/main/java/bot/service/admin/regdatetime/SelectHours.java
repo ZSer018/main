@@ -46,7 +46,7 @@ public class SelectHours extends ResponseService {
         var temp = dataManager.getDateTime(date);
 
         //unused field date im admin object
-        dataManager.getAdmin().setSignInDate(date);
+        dataManager.setCustomerSignUpDate(dataManager.ADMIN_ID, date);
 
         if (temp.size() > 0) {
 

@@ -33,8 +33,8 @@ public interface DBService {
     void regCustomerForManicure(ManicureRegObject manicureRegObject);
     Map<Long, ManicureRegObject> getCustomersManicureRegistration();
     void removeCustomerManicureRegistration(ManicureRegObject manicureRegObject);
-    void setOpenCloseDate(String openDate, String closeDate);
-    public Map<String, String> getOpenCloseDate();
+    void setBotOptions(boolean regNotify, boolean regOnService, String openDate, String closeDate, String serviceMessage);
+    public Map<String, String> getBotOptions();
 
 
 

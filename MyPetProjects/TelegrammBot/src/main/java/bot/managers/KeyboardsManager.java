@@ -75,7 +75,7 @@ public class KeyboardsManager {
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
 
-        if (chatId == dataManager.getAdmin().getTelegramId()) {
+        if (chatId == dataManager.ADMIN_ID) {
             row.add("Закончить");
         } else if (dataManager.customerManicureRegStatus(chatId) == DataManager.manicureRegStatus.NO_REG_ERROR) {
             row.add("Отказаться от регистрации");
@@ -165,6 +165,10 @@ public class KeyboardsManager {
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
         row.add("Услуги и цены");
+        keyboard.add(row);
+
+        row = new KeyboardRow();
+        row.add("Дополнительное сообщение");
         keyboard.add(row);
 
         row = new KeyboardRow();

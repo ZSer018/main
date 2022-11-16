@@ -25,21 +25,39 @@ public class ShowPortfolio extends ResponseService {
 
     public ShowPortfolio(HashMap<String, String> viewingList) {
         this.viewingList = viewingList;
-        if (viewingList != null) edited = true;
+        if (viewingList != null) {
+            edited = true;
+        }
     }
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         long chatId = update.hasCallbackQuery() ? update.getCallbackQuery().getMessage().getChatId() : update.getMessage().getChatId();
+        String type = dataManager.getUserViewType(chatId);
+        String listType = type;
+
+        System.out.println(type);
+        if (update.hasCallbackQuery()) {
+            listType = update.getCallbackQuery().getData().split("%")[1];
+        }
+        System.out.println(listType);
+
 
         if (viewingList == null) {
-            viewingList = new HashMap<>(dataManager.getPortfolioImgByType(dataManager.getUserViewType(chatId)));
-            dataManager.setUserViewingList(chatId, viewingList);
+            if (dataManager.getPortfolioImgByType(dataManager.getUserViewType(chatId)) != null) {
+                viewingList = new HashMap<>(dataManager.getPortfolioImgByType(dataManager.getUserViewType(chatId)));
+                dataManager.setUserViewingList(chatId, viewingList);
+            }
         }
 
-        if (viewingList.size() == 0) {
+        if (viewingList == null || viewingList.size() == 0 || !type.equals(listType)) {
+            if (update.hasCallbackQuery()){
+                return List.of(new SimpleEditMessage("Это сообщение устарело").getNewEditMessage(update));
+            }
             return List.of(new SimpleSendMessage("К сожалению в данном разделе пока нет ни одной фотографии",0).getNewMessage(update));
         }
+
+
         if (viewingList.size() == 1){
             return List.of(sendPic(chatId, (String)viewingList.values().toArray()[0]));
         }
@@ -103,7 +121,7 @@ public class ShowPortfolio extends ResponseService {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        rowInline.add(KeyboardsManager.getInlineKeyboardButton("Показать еще...", "viewing_ShowMore"));
+        rowInline.add(KeyboardsManager.getInlineKeyboardButton("Показать еще...", "viewing_ShowMore%"+dataManager.getUserViewType(chatId)));
         rowsInline.add(rowInline);
 
         rowInline = new ArrayList<>();

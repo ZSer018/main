@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class Bot extends TelegramLongPollingBot {
+public class Bot extends TelegramLongPollingBot{
 
     private final String BOT_TOKEN;
     private final String BOT_NAME;

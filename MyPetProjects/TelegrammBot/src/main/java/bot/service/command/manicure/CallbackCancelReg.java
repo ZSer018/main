@@ -28,14 +28,14 @@ public class CallbackCancelReg extends ResponseService {
         dataManager.userSetDefault(chatId);
 
         var temp = new ArrayList<PartialBotApiMethod<? extends Serializable>>();
-        if (dataManager.getAdmin().isRegNotify()) {
+        if (dataManager.admin_regNotify) {
            temp.add( new SimpleSendMessage("Владыка, сжалься но у тебя отмена записи: \n"
                     +dataManager.getUserName(reg.getTelegramId())+"\n"
                     +dataManager.strDateToDateAndMonthName(reg.getDate())+",   "+reg.getTime()+"\n"
                     +reg.getManicureType()+"\n"
                     +"цена: "+reg.getCost()
-                    ,dataManager.getAdmin().getTelegramId()).getNewMessage(update));
-            temp.add( new SimpleSendMessage("\uD83E\uDD72", dataManager.getAdmin().getTelegramId()).getNewMessage(update));
+                    ,dataManager.ADMIN_ID).getNewMessage(update));
+            temp.add( new SimpleSendMessage("\uD83E\uDD72", dataManager.ADMIN_ID).getNewMessage(update));
 
         }
 

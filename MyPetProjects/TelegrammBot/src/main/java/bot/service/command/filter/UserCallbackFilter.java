@@ -4,6 +4,7 @@ import bot.managers.DataManager;
 import bot.service.ResponseService;
 import bot.managers.KeyboardsManager;
 import bot.service.admin.AdminCancelManicureReg;
+import bot.service.admin.messagetoall.CallbackMessageToAll;
 import bot.service.admin.regdatetime.OpenCloseDateValidate;
 import bot.service.admin.regdatetime.SelectHours;
 import bot.service.command.manicure.*;
@@ -30,6 +31,8 @@ public class UserCallbackFilter extends ResponseService {
         String user_first_name = update.getCallbackQuery().getMessage().getChat().getFirstName();
         String user_last_name = update.getCallbackQuery().getMessage().getChat().getLastName();
         String user_username = update.getCallbackQuery().getMessage().getChat().getUserName();
+        String customerName = dataManager.getUserName(userId);
+        String customerTGUserName = dataManager.getUserName(userId);
 
 
         switch (callback) {
@@ -57,19 +60,22 @@ public class UserCallbackFilter extends ResponseService {
 
 
             case "regConfirm_YES": {
-                logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  Подтвердил свое посещение завтра");
+                logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +customerTGUserName + " )      Имя клиента: "+ customerName +"  :  Подтвердил свое посещение завтра");
                 return List.of(new SimpleEditMessage("Спасибо! Будем вас ждать!").getNewEditMessage(update),
                         new SimpleSendMessage("Запись на зватра подтверждена от: " + dataManager.getUserName(userId),
-                                dataManager.getAdmin().getTelegramId()).getNewMessage(update)
+                                dataManager.ADMIN_ID).getNewMessage(update)
                 );
             }
 
-            case "viewing_ShowMore": {
-                if (dataManager.userIsView(userId)) {
-                    return new ShowPortfolio(dataManager.getUserViewingList(userId)).responseAction(update);
-                }
-                break;
+
+            case "sendMessageToAll_yes": {
+                return new CallbackMessageToAll().responseAction(update);
             }
+
+            case "sendMessageToAll_later": {
+                return List.of(new SimpleEditMessage("Отправка отменена").getNewEditMessage(update));
+            }
+
 
             case "viewing_later": {
                 if (dataManager.userIsView(userId)) {
@@ -92,9 +98,9 @@ public class UserCallbackFilter extends ResponseService {
             case "regConfirm_NO":
             case "manicure_reg_cancel_yes": {
                 if (dataManager.customerManicureRegStatus(userId) != DataManager.manicureRegStatus.NO_REG_ERROR) {
-                    logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  отмена текущего действия / подтверждение отмены записи");
+                    logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +customerTGUserName + " )      Имя клиента: "+ customerName +"  :  отмена текущего действия / подтверждение отмены записи");
                     return new CallbackCancelReg("Запись отменена. Надеемся что вы вернетесь к нам снова "
-                            + dataManager.getCustomerObject(userId).getName() + "!").responseAction(update);
+                            + dataManager.getUserName(userId) + "!").responseAction(update);
                 }
                 break;
             }
@@ -126,33 +132,38 @@ public class UserCallbackFilter extends ResponseService {
             default: {
                 //Admin
                 if (callback.startsWith("adminSelectCloseDay_")){
-                    dataManager.getAdmin().setChoosingRegDate(false);
-                    dataManager.getAdmin().setManicureRegCloseDate(update.getCallbackQuery().getData().split("_")[1]);
+                    dataManager.admin_choosingRegDate = false;
+                    dataManager.admin_manicureRegCloseDate = update.getCallbackQuery().getData().split("_")[1];
                     return new OpenCloseDateValidate().responseAction(update);
                 }
                 if (callback.startsWith("adminSelectOpenDay_")){
-                    dataManager.getAdmin().setChoosingRegDate(false);
-                    dataManager.getAdmin().setManicureRegOpenDate(update.getCallbackQuery().getData().split("_")[1]);
+                    dataManager.admin_choosingRegDate = false;
+                    dataManager.admin_manicureRegOpenDate = update.getCallbackQuery().getData().split("_")[1];
                     return new OpenCloseDateValidate().responseAction(update);
                 }
                 if (callback.startsWith("adminSelectHours_")){
                     return new SelectHours(update.getCallbackQuery().getData().split("_")[1]).responseAction(update);
                 }
                 if (callback.startsWith("adminEditDate_yes")){
-                    System.out.println("YES");
                     return new AdminCancelManicureReg().responseAction(update);
                 }
                 if (callback.startsWith("adminEditDate_no")){
-                    System.out.println("NO");
-                    return List.of(new SimpleSendMessage(" - Отмена - ", 0).getNewMessage(update));
+                    return List.of(new SimpleEditMessage("удаление отменено").getNewEditMessage(update));
                 }
-
 
 
 
 
 
                 //User
+                if (callback.startsWith("viewing_ShowMore")) {
+                    if (dataManager.userIsView(userId)) {
+                        return new ShowPortfolio(dataManager.getUserViewingList(userId)).responseAction(update);
+                    }
+                    break;
+                }
+
+
                 String mtype = update.getCallbackQuery().getData().split("_")[1];
                 if (dataManager.getServices().contains(mtype) & dataManager.customerManicureRegStatus(userId) == DataManager.manicureRegStatus.SELECT_TYPE) {
                     return new CallbackSelectWeek().responseAction(update);
@@ -173,7 +184,7 @@ public class UserCallbackFilter extends ResponseService {
 
                 if (callback.startsWith("BSReg_hour_")) {
                     if (dataManager.customerManicureRegStatus(userId) == DataManager.manicureRegStatus.SELECT_HOUR) {
-                        logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +dataManager.getUserData(userId) +"  :  + записался на маникюр +  ");
+                        logger.info("Клиент:  ( тг_имя: "+ user_first_name +", тг_ф.: "+user_last_name+", тг_Id: "+ userId+"  тг_ник: " +customerTGUserName + " )      Имя клиента: "+ customerName +"  :  + записался на маникюр +  ");
                         return new CallbackRegComplete().responseAction(update);
                     }
                 }

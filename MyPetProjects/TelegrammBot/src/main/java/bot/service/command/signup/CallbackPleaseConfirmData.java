@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CallbackPleaseConfirmData extends ResponseService {
@@ -24,27 +25,41 @@ public class CallbackPleaseConfirmData extends ResponseService {
 
     public SendMessage pleaseConfirmData(Update update) {
         long chatId = update.getMessage().getChatId();
-        String[] data = update.getMessage().getText().replaceAll("\\s{2,}", " ").split(" ");
+        //String[] data = update.getMessage().getText().replaceAll("\\s{2,}", " ").split(" ");
+
+        String name = null;
+        String phoneNum = null;
+
+        if (update.getMessage().getText().indexOf(" ") > 1) {
+            name = update.getMessage().getText().substring(0, update.getMessage().getText().indexOf(" "));
+            phoneNum = update.getMessage().getText().substring(update.getMessage().getText().indexOf(" ") + 1);
+        } else {
+            name = update.getMessage().getText();
+            phoneNum = "-не задан-";
+        }
         String tgUsername = update.getMessage().getChat().getUserName();
+
         if (tgUsername == null) {
             tgUsername = "Не установлено";
         } else {
             tgUsername = "@" + tgUsername;
         }
 
-        var customer = dataManager.getCustomerObject(chatId);
-        if (data.length == 1) {
-            customer.setName(data[0]);
-            customer.setPhone("-");
-            customer.setTgUsername(tgUsername);
-        } else {
-            customer.setName(data[0]);
-            customer.setPhone(data[1]);
-            customer.setTgUsername(tgUsername);
-        }
-        customer.setTelegramId(0);
+//        if (data.length == 1) {
+            dataManager.setUserName(chatId, name);
+            dataManager.setUserPhone(chatId,phoneNum);
+            dataManager.setCustomerTgUsername(chatId, tgUsername);
+/*        } else {
+            dataManager.setUserName(chatId, data[0]);
+            dataManager.setUserPhone(chatId,data[1]);
+            dataManager.setCustomerTgUsername(chatId, tgUsername);
+        }*/
+        dataManager.setUserTgId(chatId,0);
 
-        String answer = "Этап 2: проверка введенных Вами данных для завершения регистрации\n\nПравильно ли введены Ваши данные? \n"+ customer;
+        String answer = "Этап 2: проверка введенных Вами данных для завершения регистрации\n\nПравильно ли введены Ваши данные? \n"
+                + "Имя: "+ dataManager.getUserName(chatId) + "\n"
+                + "Телефон: "+ dataManager.getUserPhone(chatId) + "\n"
+                + "Telegram: "+ dataManager.getCustomerTgUsername(chatId) + "\n";
 
         SendMessage message = new SendMessage();
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();

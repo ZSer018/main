@@ -25,18 +25,18 @@ public class OpenCloseDateValidate extends ResponseService {
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
         var messages = new ArrayList<PartialBotApiMethod<? extends Serializable>>();
 
-        String openString = dataManager.getAdmin().getManicureRegOpenDate();
-        String closeString = dataManager.getAdmin().getManicureRegCloseDate();
+        String openString = dataManager.admin_manicureRegOpenDate;
+        String closeString = dataManager.admin_manicureRegCloseDate;
 
         Date openDate = null;
         Date closeDate = null;
         try {
             if (openString != null) {
-                openDate = new SimpleDateFormat("yyyy.MM.dd").parse(dataManager.getAdmin().getManicureRegOpenDate());
+                openDate = new SimpleDateFormat("yyyy.MM.dd").parse(dataManager.admin_manicureRegOpenDate);
             }
             if (closeString != null) {
                 System.out.println(closeString);
-                closeDate = new SimpleDateFormat("yyyy.MM.dd").parse(dataManager.getAdmin().getManicureRegCloseDate());
+                closeDate = new SimpleDateFormat("yyyy.MM.dd").parse(dataManager.admin_manicureRegCloseDate);
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -49,34 +49,34 @@ public class OpenCloseDateValidate extends ResponseService {
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
             if (openDate.compareTo(closeDate) == 0) {
-                dataManager.getAdmin().setManicureRegCloseDate(null);
-                dataManager.getAdmin().setManicureRegOpenDate(null);
-                dataManager.saveOpenCloseDateChanges();
+                dataManager.admin_manicureRegCloseDate = null;
+                dataManager.admin_manicureRegOpenDate = null;
+                dataManager.saveBotOptions();
                 messages.add(new SimpleEditMessage("Дата открытия и закрытия записи на услуги совпадают. " +
                         "\nВсе ограничения по записи сброшены.").getNewEditMessage(update));
 
             } else if (openDate.before(closeDate)) {
-                dataManager.getAdmin().setManicureRegCloseDate(null);
-                dataManager.getAdmin().setManicureRegOpenDate(null);
-                dataManager.saveOpenCloseDateChanges();
+                dataManager.admin_manicureRegCloseDate = null;
+                dataManager.admin_manicureRegOpenDate = null;
+                dataManager.saveBotOptions();
                 messages.add(new SimpleEditMessage("Дата открытия записи на услуги не может быть до даты закрытия. " +
                         "\nВсе ограничения по записи сброшены.\nПожалуйста укажите верные даты.").getNewEditMessage(update));
 
             } else {
                 messages.add(new SimpleEditMessage("Дата установлена и в силу вступили новые правила для записи на Ваши услуги." +
                         "\nИнтервал дней свободных от записи :\n" +closeString+"  -  "+openString+"\nДней: "+diff).getNewEditMessage(update));
-                dataManager.saveOpenCloseDateChanges();
+                dataManager.saveBotOptions();
                 logger.info("Адмистратор установил временной интервал, свободный от записи :   "+closeString+"  -  "+openString + "("+" дней: "+diff+")");
             }
         } else {
 
             if (openDate != null & closeDate == null) {
-                dataManager.getAdmin().setManicureRegCloseDate(null);
-                dataManager.getAdmin().setManicureRegOpenDate(null);
+                dataManager.admin_manicureRegCloseDate = null;
+                dataManager.admin_manicureRegOpenDate = null;
                 messages.add(new SimpleEditMessage("Дата открытия записи на услуги не может быть установлена, если отсутствует дата закрытия. \nОперация отменена.").getNewEditMessage(update));
             } else {
                 messages.add(new SimpleEditMessage("Дата установлена и в силу вступили новые правила для записи на Ваши услуги.").getNewEditMessage(update));
-                dataManager.saveOpenCloseDateChanges();
+                dataManager.saveBotOptions();
             }
 
             if (closeString != null) {

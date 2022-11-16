@@ -37,7 +37,7 @@ public class NoSignUpTextFilter extends ResponseService {
 
             case "Зарегистрироваться": {
                 if (!dataManager.userIsView(userId)) {
-                    dataManager.signUpStart(userId);
+                    dataManager.setUserName(userId,"regStart");
                     logger.info("Незарегистрированный пользователь:  ( имя: "+ user_first_name +", фам.: "
                             +user_last_name+", Id: "+ userId+", ник:" + user_username+ " )   :    ++++ Начал процесс регистрации! ++++ ");
                     return List.of(KeyboardsManager.getSignCancelKeyboard(null, update));
@@ -53,7 +53,7 @@ public class NoSignUpTextFilter extends ResponseService {
             case "Услуги и цены": {
                 logger.info("Незарегистрированный пользователь:  ( имя: "+ user_first_name +", фам.: "
                         +user_last_name+", Id: "+ userId+", ник:" + user_username+ ")  :   Смотрит раздел 'Услуги и цены'");
-                return List.of( new SimpleSendMessage(dataManager.getServicesAndPricesString(),0).getNewMessage(update));
+                return List.of( new SimpleSendMessage(dataManager.getServicesAndPricesString()+dataManager.getAdminNotifyMessage(),0).getNewMessage(update));
             }
 
 
@@ -86,6 +86,7 @@ public class NoSignUpTextFilter extends ResponseService {
             default: {
                 if (dataManager.userIsView(userId) && dataManager.getServicesByName().contains(text)) {
                     dataManager.setUserViewType(userId, text);
+                    dataManager.setUserViewingList(userId, null);
                     logger.info("Незарегистрированный пользователь:  ( имя: "+ user_first_name +", фам.: "
                             +user_last_name+", Id: "+ userId+", ник:" + user_username+ " )   :    Просматривает галерею портфолио:   '"+text+"'");
                     return new ShowPortfolio(null).responseAction(update);

@@ -9,21 +9,6 @@ import java.util.*;
 @Setter
 public class CustomerObject {
 
-    //ADMIN OPTIONS ONLY
-    private boolean addingPhotos = false;
-    private boolean deletePhotos = false;
-    private boolean editServicesAndPrices = false;
-    private boolean sendingMessagesToAllCustomers = false;
-    private boolean regNotify = false;
-    private boolean appointments = true;
-    private boolean choosingRegDate = false;
-    private String manicureRegCloseDate = null;
-    private String manicureRegOpenDate = null;
-
-
-
-
-
     //user go view portfolio
     private boolean viewingPhotos = false;
     //type of photos viewing now

@@ -15,7 +15,7 @@ public class RegCalendarUpdaterTask{
 
         String today = new SimpleDateFormat("dd").format(date);
 
-        if (Integer.parseInt(today) % 5 == 0 && !updated) {
+        if (Integer.parseInt(today) % 2 == 0 && !updated) {
             DataManager dataManager = DataManager.getInstance();
             dataManager.updateAndReloadFreeDateCalendar();
             updated = true;

@@ -25,15 +25,18 @@ jar {
 }
 
 
-/*jar {
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
     manifest {
-        attributes "Main-Class": "bot.Main"
+        attributes "Main-Class": "Main"
+        attributes 'Multi-Release': 'true'
     }
 
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-}*/
+}
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
@@ -45,16 +48,14 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
 
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:2.0.3'
+
+
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
-/*// https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
-    testImplementation 'org.slf4j:slf4j-log4j12:2.0.3'
-// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation 'org.slf4j:slf4j-api:2.0.3'*/
-
-
 
 
 // https://mvnrepository.com/artifact/com.vdurmont/emoji-java
@@ -66,8 +67,6 @@ dependencies {
 
 // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
     implementation 'org.mongodb:mongo-java-driver:3.12.11'
-// https://mvnrepository.com/artifact/org.slf4j/slf4j-nop
-    testImplementation 'org.slf4j:slf4j-nop:2.0.3'
 
 
 // https://mvnrepository.com/artifact/org.hibernate/hibernate-core

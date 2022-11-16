@@ -12,7 +12,8 @@ public class CallMary extends ResponseService {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
-        return List.of(new SimpleSendMessage("Вы можете связаться с мастером, кликнув по ее никнэйму \n>> "+dataManager.getAdmin().getTgUsername()+" <<" +
-                "\nМастера зовут "+dataManager.getAdmin().getName(),0).getNewMessage(update));
+        return List.of(new SimpleSendMessage("Вы можете связаться с мастером, кликнув по ее никнэйму \n>> "
+                +dataManager.getCustomerTgUsername(dataManager.ADMIN_ID)+" <<" +
+                "\nМастера зовут "+dataManager.getUserName(dataManager.ADMIN_ID),0).getNewMessage(update));
     }
 }

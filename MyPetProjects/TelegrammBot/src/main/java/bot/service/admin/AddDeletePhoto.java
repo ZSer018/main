@@ -9,12 +9,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class AddDeletePhoto extends ResponseService {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> responseAction(Update update) {
-        if (dataManager.getAdmin().getTelegramId() != update.getMessage().getChatId()){
+        if (!Objects.equals(dataManager.ADMIN_ID, update.getMessage().getChatId())){
             return List.of(new SimpleSendMessage("Загрузка фотографий пользователем не предусмотрена. \nИзвините.", 0).getNewMessage(update));
         }
 
@@ -44,17 +45,22 @@ public class AddDeletePhoto extends ResponseService {
                 .orElse(null).getWidth();
 
         String fileUniqueId =  "_"+fileSize+height+wight;
-        System.out.println(fileUniqueId);
 
         /*Удаление фотографий*/
-        if (dataManager.getAdmin().isDeletePhotos()) {
-            dataManager.removeImgFromPortfolio(fileUniqueId);
-            return new SimpleSendMessage("Фотография удалена (если она была в базе)",0).getNewMessage(update);
+        if (dataManager.admin_deletePhotos) {
+            if (dataManager.removeImgFromPortfolio(fileUniqueId)) {
+                return new SimpleSendMessage("Фотография удалена", 0).getNewMessage(update);
+            } else {
+                return new SimpleSendMessage("К сожалению, данная фотография в базе не найдена. \n\n Для удаления фотографий из портфолио надо:\n" +
+                        "1) Выбрать фотографии в галерее телефона или компьютера\n" +
+                        "2) Прислать в телеграмм\n" +
+                        "Использовать фотографии для удаления из галереи 'портфолио' самого же бота не допускается. Эти фото изменены (размер, сжатие), и не будут опознаны", 0).getNewMessage(update);
+            }
         }
 
 
         /*Добавление фотографий*/
-        if (!dataManager.getAdmin().getViewingType().equals("-none-")) {
+        if (!dataManager.getUserViewType(dataManager.ADMIN_ID).equals("-none-")) {
             if (dataManager.addPortfolioImg(fileUniqueId, fileId)) {
                 return new SimpleSendMessage("Фотография загружена", 0).getNewMessage(update);
             } else {

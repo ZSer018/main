@@ -8,7 +8,7 @@
             <Layout type="PatternLayout" pattern="%m %n" />
         </Console>
 
-        <RollingFile name="rollingFile" filePattern="log/%d{dd-MM-yyyy}.log.gz">
+        <RollingFile name="rollingFile" filePattern="d:/bot/log/%d{dd-MM-yyyy}.log.gz">
 
             <PatternLayout>
                 <Pattern>%d{MM-dd-yyyy: kk:mm:ss} %m%n</Pattern>
