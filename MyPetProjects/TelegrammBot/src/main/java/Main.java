@@ -33,26 +33,20 @@ public class Main{
         try {
             props.load(new FileInputStream(filePath));
             adminId =  Long.parseLong(props.getProperty("ADMIN_ID", "1"));
-            adminName = props.getProperty("ADMIN_NAME", "nonane");
-            adminTGName = props.getProperty("ADMIN_TGUSERNAME", "nousername");
-            botToken = props.getProperty("BOT_TOKEN", "5691626921:AAHnkCqZolUvgx6zJifELpuuYDQHA5RRuKM");
-            botName = props.getProperty("BOT_NAME", "@Rikotta_bot");
+            adminName = props.getProperty("ADMIN_NAME", "1");
+            adminTGName = props.getProperty("ADMIN_TGUSERNAME", "1");
+            botToken = props.getProperty("BOT_TOKEN", "1");
+            botName = props.getProperty("BOT_NAME", "1");
         } catch (FileNotFoundException ignored) {
-            adminId = 851450867L;
-            //ADMIN_ID = 674694300L;
             botToken = "5691626921:AAHnkCqZolUvgx6zJifELpuuYDQHA5RRuKM";
             botName = "@Rikotta_bot";
-            adminName = "nonane";
-            adminTGName ="nousername";
+            adminName = "-nonane-";
+            adminTGName ="-nousername-";
         } catch (IOException ignored) {
         }
 
-
         DBService dbService = new MongodbService();
         Bot bot = new Bot(botToken, botName);
-
-        //Bot bot = new Bot("5691626921:AAHnkCqZolUvgx6zJifELpuuYDQHA5RRuKM", "@Rikotta_bot");
-        //Bot bot = new Bot("5736402771:AAG7z_FRTpOPG3G9Qef8zwymQVZoNjKJPEo", "@NailServiceManager_bot");
         DataManager.init(dbService, adminId, adminName, adminTGName, bot);
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);

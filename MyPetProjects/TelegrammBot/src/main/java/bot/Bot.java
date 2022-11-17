@@ -1,6 +1,8 @@
 package bot;
 
 import bot.service.command.filter.MainCommandTypeFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.*;
@@ -13,6 +15,8 @@ import java.util.List;
 
 
 public class Bot extends TelegramLongPollingBot{
+
+    private static final Logger logger = LogManager.getLogger();
 
     private final String BOT_TOKEN;
     private final String BOT_NAME;
@@ -41,25 +45,32 @@ public class Bot extends TelegramLongPollingBot{
     }
 
     public void executeMessage(List<PartialBotApiMethod<? extends Serializable>> messages) {
+        System.out.println("messages: "+ messages.size());
         messages.forEach(message -> {
             String x = message.getClass().getName().substring(message.getClass().getName().lastIndexOf(".") + 1);
             try {
                 switch (x) {
                     case "SendPhoto":
+                        System.out.println("PHOTO");
                         execute((SendPhoto) message);
                         break;
                     case "SendMediaGroup":
+                        System.out.println("MEDIA");
                         execute((SendMediaGroup) message);
                         break;
                     case "SendMessage":
+                        System.out.println("MESSAGE");
                         execute((SendMessage) message);
                         break;
                     case "EditMessageText":
+                        System.out.println("EDIT");
                         execute((EditMessageText) message);
                         break;
                 }
             } catch (TelegramApiException e) {
-                throw new IllegalStateException(e);
+                System.out.println(e.getMessage());
+                logger.warn("Ошибка при посылке сообщения: "+e.getMessage());
+                //throw new IllegalStateException(e);
             }
         });
     }

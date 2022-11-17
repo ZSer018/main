@@ -79,14 +79,15 @@ public class DataManager {
         ADMIN_ID = adminID;
 
         CustomerObject admin;
-        if (!customers.containsKey(adminID)) {
+        if (customers.containsKey(adminID)) {
+            admin = customers.get(adminID);
+        } else {
             admin = new CustomerObject();
             admin.setTelegramId(ADMIN_ID);
+        }
             admin.setName(adminName);
             admin.setTgUsername(adminTGUsername);
             customers.put(ADMIN_ID, admin);
-            addNewCustomer(adminID);
-        }
 
         var days = dbService.getBotOptions();
         if (days.size() != 0){
@@ -282,6 +283,7 @@ public class DataManager {
         return found.get();
     }
     public HashMap<String, String> getPortfolioImgByType(String type){
+        System.out.println("Portfolio is in: "+portfolio.containsKey(type));
        return portfolio.get(type);
     }
 

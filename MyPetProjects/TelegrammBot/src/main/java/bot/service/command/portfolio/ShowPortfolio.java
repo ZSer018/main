@@ -35,12 +35,9 @@ public class ShowPortfolio extends ResponseService {
         long chatId = update.hasCallbackQuery() ? update.getCallbackQuery().getMessage().getChatId() : update.getMessage().getChatId();
         String type = dataManager.getUserViewType(chatId);
         String listType = type;
-
-        System.out.println(type);
         if (update.hasCallbackQuery()) {
             listType = update.getCallbackQuery().getData().split("%")[1];
         }
-        System.out.println(listType);
 
 
         if (viewingList == null) {
@@ -74,6 +71,7 @@ public class ShowPortfolio extends ResponseService {
         while (iterator.hasNext()){
             String fileUniqueId = iterator.next();
             String fileId = viewingList.get(fileUniqueId);
+            System.out.println(fileId);
             iterator.remove();
             images.add(new InputMediaPhoto(fileId));
             x--;
@@ -84,9 +82,7 @@ public class ShowPortfolio extends ResponseService {
         }
 
         sendMediaGroup.setMedias(images);
-        System.out.println(edited);
         if (edited){
-            System.out.println("YES");
             if (viewingList.size() != 0) {
                 result.add(new SimpleEditMessage("Далее >>").getNewEditMessage(update));
             } else
@@ -102,7 +98,6 @@ public class ShowPortfolio extends ResponseService {
         if (images.size() == 10 & viewingList.size()>0)  {
             result.add(nextPartOfferMessage(chatId));
         }
-
         return result;
     }
 
