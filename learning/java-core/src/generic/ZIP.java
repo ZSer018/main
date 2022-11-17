@@ -1,5 +1,0 @@
-package generic;
-
-interface ZIP{
-
-}
